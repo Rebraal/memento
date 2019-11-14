@@ -1,3 +1,3 @@
 function hello(){
- message("GitHub test update successful");
+ message("GitHub test update now successful");
 }
