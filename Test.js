@@ -4,3 +4,6 @@ function hello(){
 function newTest(){
   message("GitHub newTest update now successful");
 }
+function branch(){
+ message("GitHub branch test update now successful");
+}
