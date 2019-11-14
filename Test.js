@@ -1,5 +1,5 @@
 function hello(){
- message("GitHub test update now successful");
+ message("GitHub reliability test now successful");
 }
 function newTest(){
   message("GitHub newTest update now successful");
