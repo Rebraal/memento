@@ -29,8 +29,6 @@ function createOnClose(){
 	//call supplements function and store response
 	var strSuppsMsg = parseSupplements();
 
-	message(strSuppsMsg);
-
 	//INTAKE
 	//Takes editted intakes and compares them to the stored version
 	//IF
