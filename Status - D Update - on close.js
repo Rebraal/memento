@@ -9,6 +9,8 @@ function updateOnClose(){
 	var entRef = libByName("References").entries()[0];
 	//The assumption is that there will never be another entry in this library
 	var ent = lib().entries()[0];
+	var fileSymptoms = file("/storage/emulated/0/memento/Symptoms graph/Symptoms fields.txt");
+	fileSymptoms.write(lib().title + "\n");
 
 	var arAllIntakes = [
 	"Intake - liquid",
