@@ -326,7 +326,7 @@ function updateOnClose(){
 		//(symptom, anything)(intensity)(deletion, optional)(edit, optional)
 		res = s.match(/(.*)(\si[0-9])(\s*x)?(\s*£)?/);
 		//if edit
-		if(res[z.del] != undefined){
+		if(res[z.edit] != undefined){
 			fileSymptoms.write(res[z.symptom] + "\n")
 		}
 		//if deletion
