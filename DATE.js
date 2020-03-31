@@ -1,7 +1,9 @@
 //a custom made DATE object that parses Memento entries into strings. I intend to use this in most Memento scripts where necessary.
 /*2020-03-31
 1515
-added string input method.
+Added string input method.
+1700
+Corrected dayStart not stepping back a day for hours < 4 
 */
 function DATE (input){
 	
