@@ -3,7 +3,7 @@ function createOnClose(){
 
 	message("B Creation - on close" +
 	"\nWorking:\n" +
-	"2019-07-25 21:45"
+	"2020-03-31 18:30"
 	);
 
 	var entRef = libByName("References").entries()[0];
@@ -19,6 +19,8 @@ function createOnClose(){
 	"Intake - nuts",
 	"Intake - misc"
 	];
+	
+	entry().set("Date stamp", new DATE(entry()));
 
 	//Call intakes function and store response
 	var strIntMsg = intakes(arAllIntakes);
@@ -314,42 +316,42 @@ function createOnClose(){
 
 	//if Temp symptoms and current symptoms (current or inactive) are not equal, parse
 	if(strSC != strTSC || strSI != strTSI){
-	//split current current and inactive symptoms into an array of strings, split at a new line character
-	var arOSC = strSC.split("\n"), arOSI = strSI.split("\n");
-	var i, j, res;
-	var arNSC = [], arNSI = [];
-	var z = {all: 0, symptom: 1, intensity: 2, del: 3, edit: 4}
+		//split current current and inactive symptoms into an array of strings, split at a new line character
+		var arOSC = strSC.split("\n"), arOSI = strSI.split("\n");
+		var i, j, res;
+		var arNSC = [], arNSI = [];
+		var z = {all: 0, symptom: 1, intensity: 2, del: 3, edit: 4}
 
-	//for each string in Old Symptoms Current
-	for(let n=0; n<arOSC.length; ++n){
-		let s = arOSC[n].trim();
-		//if for edit
-		//(symptom, anything)(intensity)(deletion, optional)(edit, optional)
-		res = s.match(/(.*)(\si[0-9])(\s*x)?(\s*£)?/);
-		//if edit
-		if(res[z.edit] != undefined){
-			fileSymptoms.write(res[z.symptom] + "\n")
-		}
-		//if deletion
-		if(res[z.del] != undefined){
-			//Add result to the new Symptoms - inactive, minus intensity
-			arNSI.push(res[z.symptom]);
-		} else {
-		//if no deletion command, store in new Symptoms  - current.
-			arNSC.push(res[z.symptom] + res[z.intensity]);
-		}
-	};//for n in array
+		//for each string in Old Symptoms Current
+		for(let n=0; n<arOSC.length; ++n){
+			let s = arOSC[n].trim();
+			//if for edit
+			//(symptom, anything)(intensity)(deletion, optional)(edit, optional)
+			res = s.match(/(.*)(\si[0-9])(\s*x)?(\s*£)?/);
+			//if edit
+			if(res[z.edit] != undefined){
+				fileSymptoms.write(res[z.symptom] + "\n")
+			}
+			//if deletion
+			if(res[z.del] != undefined){
+				//Add result to the new Symptoms - inactive, minus intensity
+				arNSI.push(res[z.symptom]);
+			} else {
+			//if no deletion command, store in new Symptoms  - current.
+				arNSC.push(res[z.symptom] + res[z.intensity]);
+			}
+		};//for n in array
 
-	//For each string in old Symptoms - inactive
-	//if there is an i level, add to new Symptoms - current
-	//otherwise, add it to new Symptoms - inactive
-	for(let n=0; n<arOSI.length; ++n){
-		let s = arOSI[n];
-		let i = s.search(/\si[0-9]/);
-		if(i > -1){
-			arNSC.push(s);
+		//For each string in old Symptoms - inactive
+		//if there is an i level, add to new Symptoms - current
+		//otherwise, add it to new Symptoms - inactive
+		for(let n=0; n<arOSI.length; ++n){
+			let s = arOSI[n];
+			let i = s.search(/\si[0-9]/);
+			if(i > -1){
+				arNSC.push(s);
 		} else {
-			arNSI.push(s);
+				arNSI.push(s);
 		}
 	};
 
