@@ -1,6 +1,6 @@
 //On close
 
-function OnClose(){
+function onClose(){
 
 	message("B Creation - on close" +
 	"\nWorking:\n" +
