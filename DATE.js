@@ -8,8 +8,6 @@ this causes problems at the start of a month... so we cheat and use the Date obj
 1800
 added in stepBackDate, split out subroutines to avoid repeated definitions.
 */
-var version = "DATE v2020-03-31 1800";
-typeof log != "undefined" ? log(version) : console.log(version);
 
 function correctHour(h){
 	h += 1;
