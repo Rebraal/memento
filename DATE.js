@@ -9,7 +9,7 @@ function DATE (entry){
 	//returns a double digit string from a number - ie 1 => "01"
 	this.dd = function(n){
 		return n < 10 ? "0" + n : "" + n;
-	}
+	};
 		
 	this.year 	= entry.field("Date").getFullYear();
 	this.month 	= entry.field("Date").getMonth()+1;
@@ -27,11 +27,11 @@ function DATE (entry){
 	this.dayStart = this.year	+ "-" + 
 					this.month 	+ "-" + 
 					this.day 	+ " " + 
-					04:00;
+					"04:00";
 					
 	this.date = this.year			+ "-" + 
 				this.dd(this.month) + "-" + 
-				this.dd(this.day )	+ " " + ;
+				this.dd(this.day )	+ " ";
 	
 	this.time = this.dd(this.hour) 		+ ":" + 
 				this.dd(this.minute);
