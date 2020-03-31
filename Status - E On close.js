@@ -52,7 +52,7 @@ function onClose(){
 		var strTemp, arTemp, strRef, arRef;
 		var arOP;
 
-		for(let a=0; a<arAllIntakes.length; ++a){
+		for(var a=0; a<arAllIntakes.length; ++a){
 			//get the field name, field value and reference value
 			strFldNm = arAllIntakes[a];
 			strToParse = entry().field(strFldNm);
@@ -101,7 +101,7 @@ function onClose(){
 			var arToSort = [];
 		
 			//fills arToSort with intake objects
-			for(let a = 0; a<arIntake.length; ++a){
+			for(var a = 0; a<arIntake.length; ++a){
 				//ensures the line isn't empty
 				if(arIntake[a].trim() != ""){
 					arToSort.push(parseIntake(arIntake[a]));
@@ -183,9 +183,9 @@ function onClose(){
 		function intakeUnique(ar){
 		//This line creates a copy of the array which seems to be needed by memento,
 		//returning ar doesn't seem to work
-		let a = ar.concat();
-		for(let i=0; i<a.length; ++i){
-			for(let j=i+1; j<a.length; ++j){
+		var a = ar.concat();
+		for(var i=0; i<a.length; ++i){
+			for(var j=i+1; j<a.length; ++j){
 				if(a[i].sub == a[j].sub)
 					a.splice(j--, 1);
 				}		
@@ -197,7 +197,7 @@ function onClose(){
 		//remove all output functions
 		function intakeSort(arToSort){
 		
-		var  arSorted = []	
+		var  arSorted = [];
 
 		arSorted = arToSort.sort(intakeSort);
 
@@ -234,16 +234,16 @@ function onClose(){
 		
 		//gets maximum of length of intake objects
 		//given len = overall length - whiteSpace length
-		for(let a=0; a<ar.length; ++a){
-			let len = ar[a].len
+		for(var a=0; a<ar.length; ++a){
+			var len = ar[a].len;
 			if(len > max){
 				max = len;
 			}//if
 		}//for
 		
 		//set whiteSpace
-		for(let a=0; a<ar.length; ++a){
-			ar[a].ws = " ".repeat(max - ar[a].len)
+		for(var a=0; a<ar.length; ++a){
+			ar[a].ws = " ".repeat(max - ar[a].len);
 		}//for
 		
 		return ar;
@@ -262,7 +262,7 @@ function onClose(){
 			//if quantity true, only output objects with a quantity
 			if(quantity){
 			//for each intake object		
-				for(let a=0; a<ar.length; ++a){
+				for(var a=0; a<ar.length; ++a){
 					//if there is a qty 
 					if(ar[a].qty != ""){
 							//add the contents of the object to the output string
@@ -276,7 +276,7 @@ function onClose(){
 				}//for
 			} else {
 			//for each intake object		
-				for(let a=0; a<ar.length; ++a){
+				for(var a=0; a<ar.length; ++a){
 					//add the contents of the object to the output string
 					strOP += 	ar[a].ind + 
 								ar[a].alg + 
@@ -321,17 +321,17 @@ function onClose(){
 		var arOSC = strSC.split("\n"), arOSI = strSI.split("\n");
 		var i, j, res;
 		var arNSC = [], arNSI = [];
-		var z = {all: 0, symptom: 1, intensity: 2, del: 3, edit: 4}
+		var z = {all: 0, symptom: 1, intensity: 2, del: 3, edit: 4};
 
 		//for each string in Old Symptoms Current
-		for(let n=0; n<arOSC.length; ++n){
-			let s = arOSC[n].trim();
+		for(var n=0; n<arOSC.length; ++n){
+			var s = arOSC[n].trim();
 			//if for edit
 			//(symptom, anything)(intensity)(deletion, optional)(edit, optional)
 			res = s.match(/(.*)(\si[0-9])(\s*x)?(\s*£)?/);
 			//if edit
 			if(res[z.edit] != undefined){
-				fileSymptoms.write(res[z.symptom] + "\n")
+				fileSymptoms.write(res[z.symptom] + "\n");
 			}
 			//if deletion
 			if(res[z.del] != undefined){
@@ -341,20 +341,20 @@ function onClose(){
 			//if no deletion command, store in new Symptoms  - current.
 				arNSC.push(res[z.symptom] + res[z.intensity]);
 			}
-		};//for n in array
+		}//for n in array
 
 		//For each string in old Symptoms - inactive
 		//if there is an i level, add to new Symptoms - current
 		//otherwise, add it to new Symptoms - inactive
-		for(let n=0; n<arOSI.length; ++n){
-			let s = arOSI[n];
-			let i = s.search(/\si[0-9]/);
+		for(var n=0; n<arOSI.length; ++n){
+			var s = arOSI[n];
+			var i = s.search(/\si[0-9]/);
 			if(i > -1){
 				arNSC.push(s);
 		} else {
 				arNSI.push(s);
 		}
-	};
+	}
 
 	//Strip anything before the ## location code from both arrays - SortCode
 	//remove duplicates from both arrays - Unique
@@ -368,7 +368,7 @@ function onClose(){
 	entry().set(fldSC, arNSC.join(""));
 	entry().set(fldSI, arNSI.join(""));
 	return "Symptoms updated";
-	};//if strings need parsing
+	}//if strings need parsing
 
 	return "Symptoms not updated";
 
@@ -377,10 +377,10 @@ function onClose(){
 	//Strip anything before the ## location code
 	//Probably doesn't work
 	function arrayAdjustSortCode(ar){
-		let a = ar.concat();
-		for(let i=0; i<a.length; ++i){
-			let s = a[i];
-			let	j = s.search(/[0-9][0-9]/);
+		var a = ar.concat();
+		for(var i=0; i<a.length; ++i){
+			var s = a[i];
+			var j = s.search(/[0-9][0-9]/);
 			//So if the first two characters are not numbers, 
 			if(j > 0){
 				//Chop them off
@@ -394,9 +394,9 @@ function onClose(){
 	function arrayUnique(ar){
 		//This line creates a copy of the array which seems to be needed by memento,
 		//returning ar doesn't seem to work
-		let a = ar.concat();
-		for(let i=0; i<a.length; ++i){
-			for(let j=i+1; j<a.length; ++j){
+		var a = ar.concat();
+		for(var i=0; i<a.length; ++i){
+			for(var j=i+1; j<a.length; ++j){
 				if(a[i] === a[j])
 					a.splice(j--, 1);
 			}		
@@ -406,7 +406,7 @@ function onClose(){
 
 	//Insert "\n" characters at the end of each of the elements (strings) in an array, excepting the last element
 	function arrayAdjustNewLine(ar){
-		let a = ar.concat();
+		var a = ar.concat();
 		for(i=0; i<a.length-1; ++i){
 			a[i] = a[i]+"\n";
 		}
@@ -415,10 +415,10 @@ function onClose(){
 
 	//Cut off i[0-9] from end of strings in array
 	function arrayAdjustILevel(ar){
-		let a = ar.concat();
-		for(let i=0; i<a.length; ++i){
-			let s = a[i];
-			let j = s.search(/\si[0-9]/);
+		var a = ar.concat();
+		for(var i=0; i<a.length; ++i){
+			var s = a[i];
+			var j = s.search(/\si[0-9]/);
 			if(j > 0){
 				a[i] = s.substring(0, j);
 			}
@@ -437,7 +437,7 @@ function onClose(){
 		
 		//parse supplements string into supplements array
 		var arSupps = entry().field("Supplements - taken").split("\n");
-		for(let a=0; a<arSupps.length; ++a){
+		for(var a=0; a<arSupps.length; ++a){
 			arSupps[a] = parseSupps(arSupps[a]);
 			strRet += arSupps[a] + "\n";
 			}
@@ -447,7 +447,7 @@ function onClose(){
 		arSupps = arrayObjectsUnique(arSupps, ["brand", "supp", "dose"]);
 		arSupps = arraySupplementsUpdateWhitespace(arSupps);
 		entry().set("Supplements - taken", arraySupplementsOutput(arSupps, true));
-		entry().set("Temp Supplements - taken", "")
+		entry().set("Temp Supplements - taken", "");
 		
 	//function to split a single supplement string into a supplement object	
 	function parseSupps(str){
@@ -499,12 +499,12 @@ function onClose(){
 	//Strip duplicate values from an array of objects (ar), checking an array of keys (keys)
 	function arrayObjectsUnique(ar, keys){
 			
-			let a = ar.concat(), dup = true;
+			var a = ar.concat(), dup = true;
 			var k=0, elRef, elVar;
 			//start looping through the array
-			for(let i=0; i<a.length; ++i){
+			for(var i=0; i<a.length; ++i){
 				//start with the next entry to compare with		
-				for(let j=i+1; j<a.length; ++j){
+				for(var j=i+1; j<a.length; ++j){
 						//reset variables for while loop
 						k = 0, dup = true;
 						elRef = a[i];
@@ -537,7 +537,7 @@ function onClose(){
 		var ar = arToUpdate;
 		var maxBrandSupp = 0, maxDose = 0;
 		var brandSupp, dose;
-		for(let a=0; a<ar.length; ++a){
+		for(var a=0; a<ar.length; ++a){
 			//if not a spacer
 			if(ar[a].brand.indexOf("#") < 0){
 				//total length of brand plus supplement to be constant
@@ -556,7 +556,7 @@ function onClose(){
 		}//for each element in array of supplements
 		
 		//set whitespaces
-		for(let a=0; a<ar.length; ++a){
+		for(var a=0; a<ar.length; ++a){
 			ar[a].ws1 = " ".repeat(maxBrandSupp - ar[a].lenBrand - ar[a].lenSupp);
 			ar[a].ws2 = " ".repeat(maxDose - ar[a].lenDose);
 		}
@@ -572,7 +572,7 @@ function onClose(){
 			//if quantity true, only output objects with a quantity
 			if(quantity){
 			//for each intake object		
-				for(let a=0; a<ar.length; ++a){
+				for(var a=0; a<ar.length; ++a){
 					//if there is a qty 
 					if(ar[a].qty != ""){
 							//add the contents of the object to the output string
@@ -587,7 +587,7 @@ function onClose(){
 				}//for
 			} else {
 			//for each intake object		
-				for(let a=0; a<ar.length; ++a){
+				for(var a=0; a<ar.length; ++a){
 					//add the contents of the object to the output string
 					strOP += 	ar[a].brand + 
 								ar[a].ws1 + 
