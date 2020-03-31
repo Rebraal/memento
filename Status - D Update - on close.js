@@ -1,9 +1,9 @@
 //ON ENTRY EDIT, BEFORE SAVING
 function updateOnClose(){
 
-	message("Update - On close" + 
+	message("B Creation - on close" +
 	"\nWorking:\n" +
-	"2019-08-31 20:00"
+	"2020-03-31 18:30"
 	);
 
 	var entRef = libByName("References").entries()[0];
@@ -21,6 +21,8 @@ function updateOnClose(){
 	"Intake - misc"
 	];
 
+	entry().set("Date stamp", new DATE(entry()));
+	
 	//Call intakes function and store response
 	var strIntMsg = intakes(arAllIntakes);
 
@@ -601,5 +603,3 @@ function updateOnClose(){
 		return strRet;
 	}//function parseSupplements
 }
-
-		
