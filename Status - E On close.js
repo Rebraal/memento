@@ -21,7 +21,7 @@ function OnClose(){
 	"Intake - misc"
 	];
 	
-	//entry().set("Date stamp", new DATE(entry()));
+	entry().set("Date stamp", new DATE(entry()));
 
 	//Call intakes function and store response
 	var strIntMsg = intakes(arAllIntakes);
