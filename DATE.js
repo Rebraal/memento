@@ -19,11 +19,11 @@ function DATE (input){
 	if(typeof input == "string"){
 		var m = input.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
 		if(m != null){
-			this.year 	= m[1];
-			this.month 	= m[2];
-			this.day 	= m[3];
-			this.hour 	= m[4];
-			this.minute	= m[5];
+			this.year 	= parseFloat(m[1]);
+			this.month 	= parseFloat(m[2]);
+			this.day 	= parseFloat(m[3]);
+			this.hour 	= parseFloat(m[4]);
+			this.minute	= parseFloat(m[5]);
 		}
 	} else {
 		this.year 	= input.field("Date").getFullYear();
