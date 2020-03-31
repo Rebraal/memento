@@ -40,8 +40,8 @@ function DATE (input){
 				
 	//04:00 defined as the start of the day.
 	this.dayStart = this.year	+ "-" + 
-					this.month 	+ "-" + 
-					this.day 	+ " " + 
+					this.dd(this.month) + "-" + 
+					this.dd(this.day )	+ " " +
 					"04:00";
 					
 	this.date = this.year			+ "-" + 
