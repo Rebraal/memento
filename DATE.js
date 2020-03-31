@@ -53,7 +53,7 @@ function DATE (input){
 	//04:00 defined as the start of the day, so if time is 00:00 < time < 03:39, step back a day
 	if(this.hour < 4){
 		//step back 12 hours - even accounting for DST this should be in the middle of the previous day
-		var t = new Date(DATEtoDate() - 12*60*60*1000);
+		var t = new Date(this.DATEtoDate() - 12*60*60*1000);
 		this.dayStart = t.getFullYear() 		+ "-" +
 						this.dd(t.getMonth()+1)	+ "-" +
 						this.dd(t.getDate())	+ " " +
