@@ -39,7 +39,7 @@ function onCreation(){
 
 	//Copy across
 	for(let n=0; n<arToCopy.length; ++n){
-		entryDefault().set(strFld, entPrev.field(arToCopy[n]));
+		entryDefault().set(arToCopy[n], entPrev.field(arToCopy[n]));
 	};
 
 
@@ -64,6 +64,6 @@ function onCreation(){
 
 	//Copy across
 	for(let n=0; n<arToCopy.length; ++n){
-		entryDefault().set(strFld, entRef.field(arToCopy[n]));
+		entryDefault().set(arToCopy[n], entRef.field(arToCopy[n]));
 	};
 }
