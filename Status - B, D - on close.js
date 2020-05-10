@@ -44,7 +44,7 @@ function intakes(){
 	//contents of field
 	var strToParse, arToParse;
 	//contents of references
-	var strTemp, arTemp, strRef, arRef;
+	var strRef, arRef;
 	var arOP;
 
 	for(var a=0; a<arAllIntakes.length; ++a){
@@ -60,7 +60,6 @@ function intakes(){
 		//check if this is the default entry - ie a copy of the reference file, if so, delete and move on
 		} else if(strToParse == strRef){
 			entry().set(strFldNm, "");
-			entry().set("Temp " + strFldNm, "");
 			return;
 		}  else {
 		//update stuff.
