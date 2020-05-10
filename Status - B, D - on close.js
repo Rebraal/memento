@@ -1,5 +1,20 @@
 //On close
 
+var entRef = libByName("References").entries()[0];
+
+var fileSymptoms = file("/storage/emulated/0/memento/Symptoms graph/Symptoms fields.txt");
+fileSymptoms.write(lib().title + "\n");
+
+var arAllIntakes = [
+"Intake - liquid",
+"Intake - vegetables",
+"Intake - meat and fish",
+"Intake - fruit",
+"Intake - nuts",
+"Intake - misc"
+];
+
+
 function onClose(){
 
 	message("onClose" +
@@ -7,20 +22,6 @@ function onClose(){
 	"2020-05-10 13:10"
 	);
 
-	var entRef = libByName("References").entries()[0];
-
-	var fileSymptoms = file("/storage/emulated/0/memento/Symptoms graph/Symptoms fields.txt");
-	fileSymptoms.write(lib().title + "\n");
-
-	var arAllIntakes = [
-	"Intake - liquid",
-	"Intake - vegetables",
-	"Intake - meat and fish",
-	"Intake - fruit",
-	"Intake - nuts",
-	"Intake - misc"
-	];
-	
 	entry().set("Date stamp", new DATE(entry()).dateStamp);
 
 	intakes(arAllIntakes);
@@ -36,7 +37,7 @@ function onClose(){
 //Updates reference file with new foods
 //	deletes content of intake
 //	deletes content of temporary intakes
-function intakes(arAllIntakes){
+function intakes(){
 	
 	//Name of field to work with
 	var strFldNm;
@@ -575,3 +576,4 @@ function arraySupplementsOutput(ar, quantity){
 	return strOP;
 
 }//function arraySupplementsOutput
+
