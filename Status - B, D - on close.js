@@ -14,6 +14,8 @@ var arAllIntakes = [
 "Intake - misc"
 ];
 
+var strRet = "";
+
 
 function onClose(){
 
@@ -29,6 +31,10 @@ function onClose(){
 	symptoms();
 
 	supplements();
+	
+	message("onClose updated:\n" + 
+			strRet
+			);
 }
 
 //INTAKE
@@ -50,16 +56,13 @@ function intakes(){
 	for(var a=0; a<arAllIntakes.length; ++a){
 		//get the field name, field value and reference value
 		strFldNm = arAllIntakes[a];
-		strToParse = entry().field(strFldNm);
+		strToParse = entry().field(strFldNm).trim();
 		strRef = entRef.field(strFldNm);
 		
 
 		//check if string is empty, if so, move on
 		if(strToParse == ""){
-			return;
-		//check if this is the default entry - ie a copy of the reference file, if so, delete and move on
-		} else if(strToParse == strRef){
-			entry().set(strFldNm, "");
+			entry().set(strFldNm, "")
 			return;
 		}  else {
 		//update stuff.
@@ -72,6 +75,7 @@ function intakes(){
 			arOP = intakeUpdateWhitespace(intakeSort(intakeUnique(arToParse.concat(arRef))));
 			entry().set(strFldNm, intakeOutput(arOP, true));
 			entRef.set(strFldNm, intakeOutput(arOP, false));
+			strRet += strFldNm + "\n";
 		}				
 	}//for all intakes in array
 	
