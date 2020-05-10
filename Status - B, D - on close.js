@@ -20,8 +20,8 @@ var strRet = "";
 function onClose(){
 
 	message("onClose" +
-	"\nDeveloping:\n" +
-	"2020-05-10 13:10"
+	"\nWorking:\n" +
+	"2020-05-11 09:00"
 	);
 
 	entry().set("Date stamp", new DATE(entry()).dateStamp);
@@ -31,10 +31,6 @@ function onClose(){
 	symptoms();
 
 	supplements();
-	
-	message("onClose updated:\n" + 
-			strRet
-			);
 }
 
 //INTAKE
@@ -579,4 +575,3 @@ function arraySupplementsOutput(ar, quantity){
 	return strOP;
 
 }//function arraySupplementsOutput
-
