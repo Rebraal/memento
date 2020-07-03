@@ -4,9 +4,13 @@
 added string input method.
 1715
 corrected not stepping back a day for dayStart if hour < 4.
-this causes problems at the start of a month... so we cheat and use the Date object for a bit.
+this causes problems at the start of a month...
 1800
 added in stepBackDate, split out subroutines to avoid repeated definitions.
+
+2020-07-03
+1300
+added in Date object input
 */
 
 function correctHour(h){
@@ -54,9 +58,17 @@ function daysInMonth(y, m){
 
 function DATE (input){
 	
+	//properties
+	//year, month, day, hour, minute
+	//dateStamp, dayStart, 
+	//date, time
+	
 	//this assumes (briefly tested) that "2020-03-31 10:40" > "2020-03-31 10:39" 
 	//as of 2020-03-31 with phone date set to both pre and post DST, all Time.getHours() values are 1 hour behind where they should be.
 
+	this.year = null;
+	try{this.year = input.getFullYear();}
+	catch{}
 	//if entry object given as string
 	if(typeof input == "string"){
 		var m = input.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
@@ -67,6 +79,11 @@ function DATE (input){
 			this.hour 	= parseFloat(m[4]);
 			this.minute	= parseFloat(m[5]);
 		}
+	}else if(this.year != null){
+		this.month 	= input.getMonth()+1;
+		this.day 	= input.getDate();
+		this.hour 	= input.getHours();
+		this.minute = input.getMinutes();
 	} else {
 		this.year 	= input.field("Date").getFullYear();
 		this.month 	= input.field("Date").getMonth()+1;
