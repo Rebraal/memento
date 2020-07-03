@@ -71,7 +71,6 @@ function DATE (input){
 		//if input is Date()
 		this.year = input.getFullYear();
 		inputType = "date";
-		message("inputType: date");	
 	}
 	//if input is string or entry
 	catch(e){
