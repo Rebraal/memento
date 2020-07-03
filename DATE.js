@@ -68,7 +68,7 @@ function DATE (input){
 
 	this.year = null;
 	try{this.year = input.getFullYear();}
-	catch(e){}
+	catch(e){null;}
 	//if entry object given as string
 	if(typeof input == "string"){
 		var m = input.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
@@ -79,17 +79,17 @@ function DATE (input){
 			this.hour 	= parseFloat(m[4]);
 			this.minute	= parseFloat(m[5]);
 		}
-	}else if(this.year != null){
+	} else if(this.year != null){
 		this.month 	= input.getMonth()+1;
 		this.day 	= input.getDate();
 		this.hour 	= input.getHours();
-		this.minute = input.getMinutes();
+		this.minute 	= input.getMinutes();
 	} else {
 		this.year 	= input.field("Date").getFullYear();
 		this.month 	= input.field("Date").getMonth()+1;
 		this.day 	= input.field("Date").getDate();
 		this.hour 	= correctHour(input.field("Time").getHours());
-		this.minute = input.field("Time").getMinutes();
+		this.minute 	= input.field("Time").getMinutes();
 	}
 	
 	this.dateStamp = 	this.year		+ "-" + 
