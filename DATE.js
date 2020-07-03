@@ -4,7 +4,7 @@
 added string input method.
 1715
 corrected not stepping back a day for dayStart if hour < 4.
-this causes problems at the start of a month...
+this causes problems at the start of a month... so we cheat and use the Date object for a bit.
 1800
 added in stepBackDate, split out subroutines to avoid repeated definitions.
 
@@ -66,9 +66,9 @@ function DATE (input){
 	//this assumes (briefly tested) that "2020-03-31 10:40" > "2020-03-31 10:39" 
 	//as of 2020-03-31 with phone date set to both pre and post DST, all Time.getHours() values are 1 hour behind where they should be.
 
-	this.year = null;
+	this.year = "empty";
 	try{this.year = input.getFullYear();}
-	catch(e){null;}
+	catch(e){message(this.year);}
 	//if entry object given as string
 	if(typeof input == "string"){
 		var m = input.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
@@ -79,17 +79,17 @@ function DATE (input){
 			this.hour 	= parseFloat(m[4]);
 			this.minute	= parseFloat(m[5]);
 		}
-	} else if(this.year != null){
-		this.month 	= input.getMonth()+1;
-		this.day 	= input.getDate();
-		this.hour 	= input.getHours();
-		this.minute 	= input.getMinutes();
-	} else {
+	} else if(this.year == "empty"){
 		this.year 	= input.field("Date").getFullYear();
 		this.month 	= input.field("Date").getMonth()+1;
 		this.day 	= input.field("Date").getDate();
 		this.hour 	= correctHour(input.field("Time").getHours());
-		this.minute 	= input.field("Time").getMinutes();
+		this.minute = input.field("Time").getMinutes();
+	} else {
+		this.month 	= input.getMonth()+1;
+		this.day 	= input.getDate();
+		this.hour 	= input.getHours();
+		this.minute = input.getMinutes();
 	}
 	
 	this.dateStamp = 	this.year		+ "-" + 
@@ -116,3 +116,5 @@ function DATE (input){
 				dd(this.minute);
 	
 }
+
+//2020-07-03 16:15
