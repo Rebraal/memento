@@ -66,11 +66,26 @@ function DATE (input){
 	//this assumes (briefly tested) that "2020-03-31 10:40" > "2020-03-31 10:39" 
 	//as of 2020-03-31 with phone date set to both pre and post DST, all Time.getHours() values are 1 hour behind where they should be.
 
-	this.year = "empty";
-	try{this.year = input.getFullYear();}
-	catch(e){message(this.year);}
+	var inputType = "none";
+	try{
+		//if input is Date()
+		this.year = input.getFullYear();
+		inputType = "date";
+		message("inputType: date");	
+	}
+	//if input is string or entry
+	catch(e){
+		try{
+			//if input is entry
+			this.year = input.field("Date").getFullYear();
+			inputType = "entry"
+		}
+		catch(e1){
+			inputType = "string";
+		}
+	}
 	//if entry object given as string
-	if(typeof input == "string"){
+	if(inputType == "string"){
 		var m = input.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
 		if(m != null){
 			this.year 	= parseFloat(m[1]);
@@ -79,8 +94,7 @@ function DATE (input){
 			this.hour 	= parseFloat(m[4]);
 			this.minute	= parseFloat(m[5]);
 		}
-	} else if(this.year == "empty"){
-		this.year 	= input.field("Date").getFullYear();
+	} else if(inputType == "entry"){
 		this.month 	= input.field("Date").getMonth()+1;
 		this.day 	= input.field("Date").getDate();
 		this.hour 	= correctHour(input.field("Time").getHours());
@@ -117,4 +131,4 @@ function DATE (input){
 	
 }
 
-//2020-07-03 16:15
+//2020-07-03 16:30
