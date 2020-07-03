@@ -68,7 +68,7 @@ function DATE (input){
 
 	this.year = null;
 	try{this.year = input.getFullYear();}
-	catch{}
+	catch(e){}
 	//if entry object given as string
 	if(typeof input == "string"){
 		var m = input.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
