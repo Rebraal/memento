@@ -91,6 +91,10 @@ function DATE (input){
 	//if entry object given as string
 	if(typeof input === "string"){
 		var m = input.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+		if(m == null){
+			//odd date format seems to crop up from time fields?			
+			m = input.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+		}
 		if(m != null){
 			this.year 	= parseFloat(m[1]);
 			this.month 	= parseFloat(m[2]);
@@ -143,4 +147,4 @@ function DATE (input){
 	
 }
 
-//2020-07-06 11:30
+//2020-07-06 12:15
