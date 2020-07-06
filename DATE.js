@@ -13,7 +13,7 @@ added in stepBackDate, split out subroutines to avoid repeated definitions.
 added in Date object input
 */
 
-log("Updated 2020-07-06 13:00");
+log("DATE updated 2020-07-06 13:00");
 
 function correctHour(h){
 	h += 1;
@@ -67,7 +67,7 @@ function DATE (input){
 	
 	//this assumes (briefly tested) that "2020-03-31 10:40" > "2020-03-31 10:39" 
 	//as of 2020-03-31 with phone date set to both pre and post DST, all Time.getHours() values are 1 hour behind where they should be.
-	log("DATE: input: " + JSON.stringify(input));	
+	//log("DATE: input: " + JSON.stringify(input));	
 	var inputType = "none";
 	/*try{
 		//if input is Date()
@@ -149,4 +149,4 @@ function DATE (input){
 	
 }
 
-//2020-07-06 13:00
+//2020-07-06 12:15
