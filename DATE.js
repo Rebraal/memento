@@ -65,7 +65,7 @@ function DATE (input){
 	
 	//this assumes (briefly tested) that "2020-03-31 10:40" > "2020-03-31 10:39" 
 	//as of 2020-03-31 with phone date set to both pre and post DST, all Time.getHours() values are 1 hour behind where they should be.
-	log("DATE: imput: " + JSON.stringify(input));	
+	log("DATE: input: " + JSON.stringify(input));	
 	var inputType = "none";
 	/*try{
 		//if input is Date()
@@ -98,6 +98,7 @@ function DATE (input){
 			this.hour 	= parseFloat(m[4]);
 			this.minute	= parseFloat(m[5]);
 		} else {
+			log("DATE error. " + JSON.stringify(input) + " is not a valid date string.");
 			throw "DATE error. Input is not a valid date string."
 		}
 	} else if(typeof input.field === "function"){
@@ -113,6 +114,7 @@ function DATE (input){
 		this.hour 	= input.getHours();
 		this.minute = input.getMinutes();
 	} else {
+		log("DATE error. " + JSON.stringify(input) + " is not a valid input.");
 		throw "DATE error. Input is not valid."
 	}
 	
