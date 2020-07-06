@@ -65,9 +65,9 @@ function DATE (input){
 	
 	//this assumes (briefly tested) that "2020-03-31 10:40" > "2020-03-31 10:39" 
 	//as of 2020-03-31 with phone date set to both pre and post DST, all Time.getHours() values are 1 hour behind where they should be.
-
+	log("DATE: imput: " + JSON.stringify(input));	
 	var inputType = "none";
-	try{
+	/*try{
 		//if input is Date()
 		this.year = input.getFullYear();
 		inputType = "date";
@@ -83,8 +83,13 @@ function DATE (input){
 			inputType = "string";
 		}
 	}
+	*/
+	if(typeof input.getFullYear === "function"){
+		
+	}
+	
 	//if entry object given as string
-	if(inputType == "string"){
+	if(typeof input === "string"){
 		var m = input.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
 		if(m != null){
 			this.year 	= parseFloat(m[1]);
@@ -92,17 +97,23 @@ function DATE (input){
 			this.day 	= parseFloat(m[3]);
 			this.hour 	= parseFloat(m[4]);
 			this.minute	= parseFloat(m[5]);
+		} else {
+			throw "DATE error. Input is not a valid date string."
 		}
-	} else if(inputType == "entry"){
+	} else if(typeof input.field === "function"){
+		this.year 	= input.field("Date").getFullYear();
 		this.month 	= input.field("Date").getMonth()+1;
 		this.day 	= input.field("Date").getDate();
 		this.hour 	= correctHour(input.field("Time").getHours());
 		this.minute = input.field("Time").getMinutes();
-	} else {
+	} else if(typeof input.getFullYear === "function"){
+		this.year 	= input.getFullYear();
 		this.month 	= input.getMonth()+1;
 		this.day 	= input.getDate();
 		this.hour 	= input.getHours();
 		this.minute = input.getMinutes();
+	} else {
+		throw "DATE error. Input is not valid."
 	}
 	
 	this.dateStamp = 	this.year		+ "-" + 
@@ -130,4 +141,4 @@ function DATE (input){
 	
 }
 
-//2020-07-03 16:30
+//2020-07-06 11:30
