@@ -13,7 +13,7 @@ added in stepBackDate, split out subroutines to avoid repeated definitions.
 added in Date object input
 */
 
-log("DATE updated 2020-07-06 13:00");
+log("DATE updated 2020-07-15 17:45");
 
 function correctHour(h){
 	h += 1;
