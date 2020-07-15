@@ -68,27 +68,6 @@ function DATE (input){
 	//this assumes (briefly tested) that "2020-03-31 10:40" > "2020-03-31 10:39" 
 	//as of 2020-03-31 with phone date set to both pre and post DST, all Time.getHours() values are 1 hour behind where they should be.
 	//log("DATE: input: " + JSON.stringify(input));	
-	var inputType = "none";
-	/*try{
-		//if input is Date()
-		this.year = input.getFullYear();
-		inputType = "date";
-	}
-	//if input is string or entry
-	catch(e){
-		try{
-			//if input is entry
-			this.year = input.field("Date").getFullYear();
-			inputType = "entry"
-		}
-		catch(e1){
-			inputType = "string";
-		}
-	}
-	*/
-	if(typeof input.getFullYear === "function"){
-		
-	}
 	
 	//if entry object given as string
 	if(typeof input === "string"){
@@ -96,6 +75,7 @@ function DATE (input){
 		if(m == null){
 			//odd date format seems to crop up from time fields?			
 			m = input.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+			//m[4] = correctHour(parseFloat(m[4]));
 		}
 		if(m != null){
 			this.year 	= parseFloat(m[1]);
@@ -117,7 +97,7 @@ function DATE (input){
 		this.year 	= input.getFullYear();
 		this.month 	= input.getMonth()+1;
 		this.day 	= input.getDate();
-		this.hour 	= input.getHours();
+		this.hour 	= correctHour(input.getHours());
 		this.minute = input.getMinutes();
 	} else {
 		log("DATE error. " + JSON.stringify(input) + " is not a valid input.");
@@ -149,4 +129,4 @@ function DATE (input){
 	
 }
 
-//2020-07-06 12:15
+//2020-07-15 17:45
