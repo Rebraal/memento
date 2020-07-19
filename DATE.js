@@ -9,7 +9,7 @@ added in Date object input
 corrected error where stepBackDate was only passing one argument to daysInMonth, resulting in wrong dayStart
 */
 
-log("DATE updated 2020-07-15 17:45");
+log("DATE updated 2020-07-19 15:00");
 
 function correctHour(h){
 	h += 1;
