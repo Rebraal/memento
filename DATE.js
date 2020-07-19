@@ -9,8 +9,6 @@ added in Date object input
 corrected error where stepBackDate was only passing one argument to daysInMonth, resulting in wrong dayStart
 */
 
-log("DATE updated 2020-07-19 15:00");
-
 function correctHour(h){
 	h += 1;
 	return  h > 23 ? 0 : h;
@@ -19,6 +17,7 @@ function correctHour(h){
 function dd(n){
 	return n < 10 ? "0" + n : "" + n;
 }
+
 //returns the previous start of day
 function stepBackDate(y, m, d){
 	d--;
@@ -33,6 +32,32 @@ function stepBackDate(y, m, d){
 		}
 	}
 	return y + "-" + dd(m) + "-" + dd(d) + " 04:00";
+}
+
+//only need to deal with day at the moment
+//d = DATE object, sub = real
+//returns altered DATE object
+function dateSubtract(d, sub){
+	console.log(`sub>0 ${sub>0}`);
+	while(sub > 0){
+		console.log(`sub>d.day ${sub>d.day}`);
+		if(sub >= d.day){
+			sub -= d.day;
+			d.month--;
+			if(d.month < 1){
+				d.month = 12;
+				d.year--;
+			}
+			d.day = daysInMonth(d.year, d.month);
+		} else {
+			console.log(`d.day ${d.day}`);
+			d.day -= sub;
+			console.log(`d.day ${d.day}`);
+			sub = 0;
+		}
+	}
+	d.updateProperties();
+	return d;
 }
 
 function isLeapYear(y){
@@ -100,29 +125,34 @@ function DATE (input){
 		throw "DATE error. Input is not valid."
 	}
 	
-	this.dateStamp = 	this.year		+ "-" + 
-						dd(this.month) 	+ "-" + 
-						dd(this.day )	+ " " + 
-						dd(this.hour) 	+ ":" + 
-						dd(this.minute);
+	this.updateProperties = function(){
+		
+		this.dateStamp = 	this.year		+ "-" + 
+							dd(this.month) 	+ "-" + 
+							dd(this.day )	+ " " + 
+							dd(this.hour) 	+ ":" + 
+							dd(this.minute);
 
-	//04:00 defined as the start of the day, so if time is 00:00 < time < 03:39, step back a day
-	if(this.hour < 4){
-		this.dayStart = stepBackDate(this.year, this.month, this.day);
-	} else {
-		this.dayStart = this.year		+ "-" + 
-						dd(this.month) 	+ "-" + 
-						dd(this.day )	+ " " +
-						"04:00";
+		//04:00 defined as the start of the day, so if time is 00:00 < time < 03:39, step back a day
+		if(this.hour < 4){
+			this.dayStart = stepBackDate(this.year, this.month, this.day);
+		} else {
+			this.dayStart = this.year		+ "-" + 
+							dd(this.month) 	+ "-" + 
+							dd(this.day )	+ " " +
+							"04:00";
+		}
+						
+		this.date = this.year		+ "-" + 
+					dd(this.month) 	+ "-" + 
+					dd(this.day )	+ " ";
+		
+		this.time = dd(this.hour) 	+ ":" + 
+					dd(this.minute);
 	}
-					
-	this.date = this.year		+ "-" + 
-				dd(this.month) 	+ "-" + 
-				dd(this.day )	+ " ";
 	
-	this.time = dd(this.hour) 	+ ":" + 
-				dd(this.minute);
-	
+	this.updateProperties();
 }
 
-//2020-07-19 15:00
+log("DATE updated 2020-07-19 20:45");
+//2020-07-19 20:45
