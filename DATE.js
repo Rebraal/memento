@@ -1,16 +1,12 @@
 //a custom made DATE object that parses Memento entries into strings. I intend to use this in most Memento scripts where necessary.
-/*2020-03-31
-1515
+/*2020-03-31 1515
 added string input method.
-1715
-corrected not stepping back a day for dayStart if hour < 4.
-this causes problems at the start of a month... so we cheat and use the Date object for a bit.
-1800
-added in stepBackDate, split out subroutines to avoid repeated definitions.
 
-2020-07-03
-1300
+2020-07-03 1300
 added in Date object input
+
+2020-07-19 1500
+corrected error where stepBackDate was only passing one argument to daysInMonth, resulting in wrong dayStart
 */
 
 log("DATE updated 2020-07-15 17:45");
@@ -33,7 +29,7 @@ function stepBackDate(y, m, d){
 			m = 12;
 			d = 31;
 		} else {
-			d = daysInMonth(m);
+			d = daysInMonth(y, m);
 		}
 	}
 	return y + "-" + dd(m) + "-" + dd(d) + " 04:00";
@@ -129,4 +125,4 @@ function DATE (input){
 	
 }
 
-//2020-07-15 17:45
+//2020-07-19 15:00
