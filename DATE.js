@@ -7,6 +7,8 @@ added in Date object input
 
 2020-07-19 1500
 corrected error where stepBackDate was only passing one argument to daysInMonth, resulting in wrong dayStart
+2045
+added method for subtracting days from date.
 */
 
 function correctHour(h){
@@ -19,6 +21,7 @@ function dd(n){
 }
 
 //returns the previous start of day
+//if this is generalised to use dateSubtract, I think there's potential for infinite recursion.
 function stepBackDate(y, m, d){
 	d--;
 	if(d < 1){
@@ -38,9 +41,7 @@ function stepBackDate(y, m, d){
 //d = DATE object, sub = real
 //returns altered DATE object
 function dateSubtract(d, sub){
-	console.log(`sub>0 ${sub>0}`);
 	while(sub > 0){
-		console.log(`sub>d.day ${sub>d.day}`);
 		if(sub >= d.day){
 			sub -= d.day;
 			d.month--;
@@ -50,9 +51,7 @@ function dateSubtract(d, sub){
 			}
 			d.day = daysInMonth(d.year, d.month);
 		} else {
-			console.log(`d.day ${d.day}`);
 			d.day -= sub;
-			console.log(`d.day ${d.day}`);
 			sub = 0;
 		}
 	}
@@ -152,7 +151,7 @@ function DATE (input){
 	}
 	
 	this.updateProperties();
-}
+}ac
 
-log("DATE updated 2020-07-19 20:45");
-//2020-07-19 20:45
+log("DATE updated 2020-07-20 20:45");
+//2020-07-20 20:45
