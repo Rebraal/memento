@@ -151,7 +151,6 @@ function DATE (input){
 	}
 	
 	this.updateProperties();
-}ac
+}
 
-log("DATE updated 2020-07-20 20:45");
-//2020-07-20 20:45
+log("DATE updated 2020-07-22 12:15");
