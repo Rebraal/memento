@@ -594,7 +594,9 @@ function arraySupplementsOutput(ar, quantity){
 
 //for ease of commenting out
 function csg(symptomsGraph){
-	createAllSymptomGraphs(symptomsGraph)
+	
+	createAllSymptomGraphs(symptomsGraph);
+	
 }
 
 //2020-08-03 20:30
