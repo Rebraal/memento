@@ -3,15 +3,7 @@
 var entRef = libByName("References").entries()[0];
 
 var fileSymptoms = file("/storage/emulated/0/memento/Symptoms graph/Symptoms fields.txt");
-var errorLogFile = file("/storage/emulated/0/memento/StatusErrors.txt");
 fileSymptoms.write(lib().title + "\n");
-//errors should have form [{n: "symptoms", data: ["error1", "error2"]}, ]
-var errors = [
-	{n: "Symptoms", data: []},
-	{n: "Intakes", data: []},
-	{n: "Supplements", data: []}
-	]; 
-var errorStr = "";
 
 var arAllIntakes = [
 "Intake - liquid",
@@ -22,14 +14,15 @@ var arAllIntakes = [
 "Intake - misc"
 ];
 
-var strRet = "";
+var strRet = "", msg = "";
+var symptomsGraph = [], symptomsErrors = "";
 
 
 function onClose(){
 
 	message("onClose" +
-	"\nTesting:\n" +
-	"2020-07-19 15:45"
+	"\nDeveloping:\n" +
+	"2020-08-03 19:00"
 	);
 
 	entry().set("Date stamp", new DATE(entry()).dateStamp);
@@ -39,21 +32,8 @@ function onClose(){
 	symptoms();
 
 	supplements();
-
-
-	errors.map((er)=>{
-		if(er.data.length > 0){
-			errorStr += er.n + er.data.reduce((sum, e)=>{
-				return sum + e + "\n";
-			}, "") + "\n";
-		}
-	});
 	
-	if(errorStr != ""){		
-		errorLogFile.write(errorStr);
-		errorLogFile.close();
-		message("onClose\nERRORS\n" + errorStr);
-	}
+	message("onClose end\n" + symptomsErrors);
 }
 
 //INTAKE
@@ -81,7 +61,7 @@ function intakes(){
 
 		//check if string is empty, if so, move on
 		if(strToParse == ""){
-			entry().set(strFldNm, "");
+			entry().set(strFldNm, "")
 			return;
 		}  else {
 		//update stuff.
@@ -324,25 +304,31 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 		var s = arOSC[n].trim();
 		//if for edit
 		//(symptom, anything)(intensity)(deletion, optional)(edit, optional)
-		res = s.match(/(.*)(\si[0-9])(\s*x)?(\s*£)?/);
-		//if edit
-		if(res[z.edit] != undefined){
-			fileSymptoms.write(res[z.symptom] + "\n");
-		}
-		//if deletion
-		if(res[z.del] != undefined){
-			//Add result to the new Symptoms - inactive, minus intensity
-			arNSI.push(res[z.symptom]);
-		} else {
-		//if no deletion command, store in new Symptoms  - current.
-		//check for failure
-			if(res == null){
-				errors[0].data.push(s);
+		res = s.match(/(.*)(\si[0-9])(\s*x)?(\s*£.*)?/);
+		if(res != null){
+			//if edit
+			if(res[z.edit] != undefined){
+				fileSymptoms.write(res[z.symptom] + "\n");
+				symptomsGraph.push({library: lib().title, symptom: s, edit: res[z.edit]});
+				msg += JSON.stringify({library: lib().title, symptom: s, edit: res[z.edit]}) + "\nEdit fired\n";
+			}
+			//if deletion
+			if(res[z.del] != undefined){
+				//Add result to the new Symptoms - inactive, minus intensity
+				arNSI.push(res[z.symptom]);
+				msg += s + "Deletion fired\n";
 			} else {
+			//if no deletion command, store in new Symptoms  - current.
 				arNSC.push(res[z.symptom] + res[z.intensity]);
 			}
+		//failed symptom sntax	
+		} else {
+			arNSC.push(s);
+			symptomsErrors += "Error: " + s + "\n";
 		}
 	}//for n in array
+	
+	log(msg);
 
 	//For each string in old Symptoms - inactive
 	//if there is an i level, add to new Symptoms - current
@@ -369,6 +355,8 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 	//Currently we only have arrays, so stringify with join("") ["Hi", "There"] => "HiThere"
 	entry().set(fldSC, arNSC.join(""));
 	entry().set(fldSI, arNSI.join(""));
+	
+	csg(symptomsGraph);
 	return;
 
 }//function symptoms
@@ -604,3 +592,9 @@ function arraySupplementsOutput(ar, quantity){
 
 }//function arraySupplementsOutput
 
+//for ease of commenting out
+function csg(symptomsGraph){
+	createAllSymptomGraphs(symptomsGraph)
+}
+
+//2020-08-03 20:30
