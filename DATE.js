@@ -6,23 +6,26 @@ added string input method.
 added in Date object input
 
 2020-07-19 1500
-corrected error where stepBackDate was only passing one argument to daysInMonth, resulting in wrong dayStart
+corrected error where DATE_stepBackDate was only passing one argument to DATE_daysInMonth, resulting in wrong dayStart
 2045
 added method for subtracting days from date.
+
+2020-08-03 2015
+renamed all function with a DATE_ prefix to prevent duplication
 */
 
-function correctHour(h){
+function DATE_correctHour(h){
 	h += 1;
 	return  h > 23 ? 0 : h;
 }
 //returns a double digit string from a number - ie 1 => "01"
-function dd(n){
+function DATE_dd(n){
 	return n < 10 ? "0" + n : "" + n;
 }
 
 //returns the previous start of day
-//if this is generalised to use dateSubtract, I think there's potential for infinite recursion.
-function stepBackDate(y, m, d){
+//if this is generalised to use DATE_dateSubtract, I think there's potential for infinite recursion.
+function DATE_stepBackDate(y, m, d){
 	d--;
 	if(d < 1){
 		m--;
@@ -31,16 +34,16 @@ function stepBackDate(y, m, d){
 			m = 12;
 			d = 31;
 		} else {
-			d = daysInMonth(y, m);
+			d = DATE_daysInMonth(y, m);
 		}
 	}
-	return y + "-" + dd(m) + "-" + dd(d) + " 04:00";
+	return y + "-" + DATE_dd(m) + "-" + DATE_dd(d) + " 04:00";
 }
 
 //only need to deal with day at the moment
 //d = DATE object, sub = real
 //returns altered DATE object
-function dateSubtract(d, sub){
+function DATE_dateSubtract(d, sub){
 	while(sub > 0){
 		if(sub >= d.day){
 			sub -= d.day;
@@ -49,7 +52,7 @@ function dateSubtract(d, sub){
 				d.month = 12;
 				d.year--;
 			}
-			d.day = daysInMonth(d.year, d.month);
+			d.day = DATE_daysInMonth(d.year, d.month);
 		} else {
 			d.day -= sub;
 			sub = 0;
@@ -59,12 +62,12 @@ function dateSubtract(d, sub){
 	return d;
 }
 
-function isLeapYear(y){
+function DATE_isLeapYear(y){
 	return (y % 100 === 0) ? (y % 400 === 0) : (y % 4 === 0);
 }
 
 //return days in the month, Jan = 1
-function daysInMonth(y, m){
+function DATE_daysInMonth(y, m){
 	switch(m){
 		case 11:
 		case 9:
@@ -72,7 +75,7 @@ function daysInMonth(y, m){
 		case 4:
 			return 30;
 		case 2:
-			return isLeapYear(y) ? 29 : 28;
+			return DATE_isLeapYear(y) ? 29 : 28;
 		default:
 			return 31;
 	}
@@ -95,7 +98,7 @@ function DATE (input){
 		if(m == null){
 			//odd date format seems to crop up from time fields?			
 			m = input.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
-			//m[4] = correctHour(parseFloat(m[4]));
+			//m[4] = DATE_correctHour(parseFloat(m[4]));
 		}
 		if(m != null){
 			this.year 	= parseFloat(m[1]);
@@ -111,13 +114,13 @@ function DATE (input){
 		this.year 	= input.field("Date").getFullYear();
 		this.month 	= input.field("Date").getMonth()+1;
 		this.day 	= input.field("Date").getDate();
-		this.hour 	= correctHour(input.field("Time").getHours());
+		this.hour 	= DATE_correctHour(input.field("Time").getHours());
 		this.minute = input.field("Time").getMinutes();
 	} else if(typeof input.getFullYear === "function"){
 		this.year 	= input.getFullYear();
 		this.month 	= input.getMonth()+1;
 		this.day 	= input.getDate();
-		this.hour 	= correctHour(input.getHours());
+		this.hour 	= DATE_correctHour(input.getHours());
 		this.minute = input.getMinutes();
 	} else {
 		log("DATE error. " + JSON.stringify(input) + " is not a valid input.");
@@ -127,27 +130,27 @@ function DATE (input){
 	this.updateProperties = function(){
 		
 		this.dateStamp = 	this.year		+ "-" + 
-							dd(this.month) 	+ "-" + 
-							dd(this.day )	+ " " + 
-							dd(this.hour) 	+ ":" + 
-							dd(this.minute);
+							DATE_dd(this.month) 	+ "-" + 
+							DATE_dd(this.day )	+ " " + 
+							DATE_dd(this.hour) 	+ ":" + 
+							DATE_dd(this.minute);
 
 		//04:00 defined as the start of the day, so if time is 00:00 < time < 03:39, step back a day
 		if(this.hour < 4){
-			this.dayStart = stepBackDate(this.year, this.month, this.day);
+			this.dayStart = DATE_stepBackDate(this.year, this.month, this.day);
 		} else {
 			this.dayStart = this.year		+ "-" + 
-							dd(this.month) 	+ "-" + 
-							dd(this.day )	+ " " +
+							DATE_dd(this.month) 	+ "-" + 
+							DATE_dd(this.day )	+ " " +
 							"04:00";
 		}
 						
 		this.date = this.year		+ "-" + 
-					dd(this.month) 	+ "-" + 
-					dd(this.day )	+ " ";
+					DATE_dd(this.month) 	+ "-" + 
+					DATE_dd(this.day )	+ " ";
 		
-		this.time = dd(this.hour) 	+ ":" + 
-					dd(this.minute);
+		this.time = DATE_dd(this.hour) 	+ ":" + 
+					DATE_dd(this.minute);
 	}
 	
 	this.updateProperties();
