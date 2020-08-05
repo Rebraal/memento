@@ -165,7 +165,7 @@ function createSymptomGraph(symptom, edit){
 			strLog 	+=	entry.field("Date stamp") + " " + result[2].trim() + "\n";
 		}
 	}
-	return {graph: strGraph, log: strLog};
+	return {graph: strGraph.slice(0, -1), log: strLog.slice(0, -1)};
 }
 
-log("Create symptoms graphs.js 2020-08-05 19:31");
+log("Create symptoms graphs.js 2020-08-05 21:00");
