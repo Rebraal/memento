@@ -14,15 +14,13 @@ var arAllIntakes = [
 "Intake - misc"
 ];
 
-var strRet = "";
+var strRet = "", msg = "";
+var symptomsGraph = [], symptomsErrors = "";
 
 
 function onClose(){
 
-	message("onClose" +
-	"\nWorking:\n" +
-	"2020-05-11 09:00"
-	);
+	message("onClose");
 
 	entry().set("Date stamp", new DATE(entry()).dateStamp);
 
@@ -31,6 +29,16 @@ function onClose(){
 	symptoms();
 
 	supplements();
+	
+	if(symptomsErrors != ""){
+		log("symptomsErrors:\n" + symptomsErrors);
+		throw new Error(symptomsErrors);
+	} else {
+		message("onClose end" + 
+				"\nDeveloping:\n" +
+				"2020-08-05 14:15"
+				);
+	}
 }
 
 //INTAKE
@@ -301,18 +309,25 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 		var s = arOSC[n].trim();
 		//if for edit
 		//(symptom, anything)(intensity)(deletion, optional)(edit, optional)
-		res = s.match(/(.*)(\si[0-9])(\s*x)?(\s*£)?/);
-		//if edit
-		if(res[z.edit] != undefined){
-			fileSymptoms.write(res[z.symptom] + "\n");
-		}
-		//if deletion
-		if(res[z.del] != undefined){
-			//Add result to the new Symptoms - inactive, minus intensity
-			arNSI.push(res[z.symptom]);
+		res = s.match(/(.*)(\si[0-9])(\s*x)?\s*(£.*)?/);
+		if(res != null){
+			//if edit
+			if(res[z.edit] != undefined){
+				fileSymptoms.write(res[z.symptom] + "\n");
+				symptomsGraph.push({library: lib().title, symptom: res[z.symptom], edit: res[z.edit]});
+			}
+			//if deletion
+			if(res[z.del] != undefined){
+				//Add result to the new Symptoms - inactive, minus intensity
+				arNSI.push(res[z.symptom]);
+			} else {
+			//if no deletion command, store in new Symptoms  - current.
+				arNSC.push(res[z.symptom] + res[z.intensity]);
+			}
+		//failed symptom sntax	
 		} else {
-		//if no deletion command, store in new Symptoms  - current.
-			arNSC.push(res[z.symptom] + res[z.intensity]);
+			arNSC.push(s);
+			symptomsErrors += "Error: " + s + "\n";
 		}
 	}//for n in array
 
@@ -341,6 +356,10 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 	//Currently we only have arrays, so stringify with join("") ["Hi", "There"] => "HiThere"
 	entry().set(fldSC, arNSC.join(""));
 	entry().set(fldSI, arNSI.join(""));
+	
+	if(symptomsGraph.length > 0){
+		csg(symptomsGraph);
+	}
 	return;
 
 }//function symptoms
@@ -575,3 +594,11 @@ function arraySupplementsOutput(ar, quantity){
 	return strOP;
 
 }//function arraySupplementsOutput
+
+//for ease of commenting out
+function csg(symptomsGraph){
+	log(entry().field("Date stamp") + "\n" + JSON.stringify(symptomsGraph));
+	createAllSymptomGraphs(entry().field("Date stamp"), symptomsGraph);
+}
+
+//2020-08-05 19:45
