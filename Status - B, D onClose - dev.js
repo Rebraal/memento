@@ -598,7 +598,7 @@ function arraySupplementsOutput(ar, quantity){
 //for ease of commenting out
 function csg(symptomsGraph){
 	log(entry().field("Date stamp") + "\n" + JSON.stringify(symptomsGraph));
-	message(entry().field("Date stamp"), createAllSymptomGraphs(symptomsGraph));
+	message(createAllSymptomGraphs(entry().field("Date stamp"), symptomsGraph));
 }
 
-//2020-08-05 14:30
+//2020-08-05 14:45
