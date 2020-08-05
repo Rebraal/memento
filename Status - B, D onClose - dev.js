@@ -357,7 +357,7 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 	entry().set(fldSC, arNSC.join(""));
 	entry().set(fldSI, arNSI.join(""));
 	
-	csg(symptomsGraph);
+	csg(entry().field("Date stamp"), symptomsGraph);
 	return;
 
 }//function symptoms
@@ -598,4 +598,4 @@ function csg(symptomsGraph){
 	message(createAllSymptomGraphs(symptomsGraph));;
 }
 
-//2020-08-05 12:15
+//2020-08-05 13:52
