@@ -20,10 +20,7 @@ var symptomsGraph = [], symptomsErrors = "";
 
 function onClose(){
 
-	message("onClose" +
-	"\nDeveloping:\n" +
-	"2020-08-03 19:00"
-	);
+	message("onClose");
 
 	entry().set("Date stamp", new DATE(entry()).dateStamp);
 
@@ -37,7 +34,10 @@ function onClose(){
 		log("symptomsErrors:\n" + symptomsErrors);
 		throw new Error(symptomsErrors);
 	} else {
-		message("onClose end");
+		message("onClose end" + 
+				"\nDeveloping:\n" +
+				"2020-08-05 14:15"
+				);
 	}
 }
 
@@ -358,7 +358,7 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 	entry().set(fldSI, arNSI.join(""));
 	
 	if(symptomsGraph.length > 0){
-		csg(entry().field("Date stamp"), symptomsGraph);
+		csg(symptomsGraph);
 	}
 	return;
 
@@ -597,7 +597,7 @@ function arraySupplementsOutput(ar, quantity){
 
 //for ease of commenting out
 function csg(symptomsGraph){
-	message(createAllSymptomGraphs(symptomsGraph));;
+	message(entry().field("Date stamp"), createAllSymptomGraphs(symptomsGraph));;
 }
 
-//2020-08-05 14:07
+//2020-08-05 14:20
