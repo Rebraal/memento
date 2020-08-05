@@ -304,13 +304,13 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 		var s = arOSC[n].trim();
 		//if for edit
 		//(symptom, anything)(intensity)(deletion, optional)(edit, optional)
-		res = s.match(/(.*)(\si[0-9])(\s*x)?(\s*£.*)?/);
+		res = s.match(/(.*)(\si[0-9])(\s*x)?\s*(£.*)?/);
 		if(res != null){
 			//if edit
 			if(res[z.edit] != undefined){
 				fileSymptoms.write(res[z.symptom] + "\n");
-				symptomsGraph.push({library: lib().title, symptom: s, edit: res[z.edit]});
-				msg += JSON.stringify({library: lib().title, symptom: s, edit: res[z.edit]}) + "\nEdit fired\n";
+				symptomsGraph.push({library: lib().title, symptom: res[z.symptom], edit: res[z.edit]});
+				msg += JSON.stringify({library: lib().title, symptom: res[z.symptom], edit: res[z.edit]}) + "\nEdit fired\n";
 			}
 			//if deletion
 			if(res[z.del] != undefined){
@@ -594,9 +594,7 @@ function arraySupplementsOutput(ar, quantity){
 
 //for ease of commenting out
 function csg(symptomsGraph){
-	
 	createAllSymptomGraphs(symptomsGraph);
-	
 }
 
-//2020-08-03 20:30
+//2020-08-05 10:55
