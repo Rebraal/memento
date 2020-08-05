@@ -33,7 +33,12 @@ function onClose(){
 
 	supplements();
 	
-	message("onClose end\n" + symptomsErrors);
+	if(symptomsErrors != ""){
+		log("symptomsErrors:\n" + symptomsErrors);
+		throw new Error(symptomsErrors);
+	} else {
+		message("onClose end");
+	}
 }
 
 //INTAKE
@@ -310,13 +315,11 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 			if(res[z.edit] != undefined){
 				fileSymptoms.write(res[z.symptom] + "\n");
 				symptomsGraph.push({library: lib().title, symptom: res[z.symptom], edit: res[z.edit]});
-				msg += JSON.stringify({library: lib().title, symptom: res[z.symptom], edit: res[z.edit]}) + "\nEdit fired\n";
 			}
 			//if deletion
 			if(res[z.del] != undefined){
 				//Add result to the new Symptoms - inactive, minus intensity
 				arNSI.push(res[z.symptom]);
-				msg += s + "Deletion fired\n";
 			} else {
 			//if no deletion command, store in new Symptoms  - current.
 				arNSC.push(res[z.symptom] + res[z.intensity]);
@@ -327,8 +330,6 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 			symptomsErrors += "Error: " + s + "\n";
 		}
 	}//for n in array
-	
-	log(msg);
 
 	//For each string in old Symptoms - inactive
 	//if there is an i level, add to new Symptoms - current
@@ -594,7 +595,7 @@ function arraySupplementsOutput(ar, quantity){
 
 //for ease of commenting out
 function csg(symptomsGraph){
-	createAllSymptomGraphs(symptomsGraph);
+	message(createAllSymptomGraphs(symptomsGraph));;
 }
 
-//2020-08-05 10:55
+//2020-08-05 12:15
