@@ -168,4 +168,4 @@ function createSymptomGraph(symptom, edit){
 	return {graph: strGraph.slice(0, -1), log: strLog.slice(0, -1)};
 }
 
-log("Create symptoms graphs.js 2020-08-05 21:00");
+log("Create symptoms graphs.js 2020-08-06 14:12");
