@@ -537,8 +537,49 @@ function updateOverviewDuration(e){
 	}
 }
 
+//for a given entry and symptom, finds symptom and creates a score of time duration * symptom intensity
+//returns this corrected to 0-1
+function getSymChange(e, s){
+	
+	var arSymptoms = e.field("Symptoms - current").split("\n");
+	for (var a=0; a<arSymptoms.length; a++){
+		var m = arSymptoms[a].match(new RegExp(".*" + s + ".*?(\\[.*\\])"));
+		if(m != null){
+			//strLog += "\ngetSymChange: m: " + m;
+			m = JSON.parse(m[1]);
+			//strLog += "\ngetSymChange: m: " + JSON.stringify(m);
+			//if only one entry
+			if(m.length == 1){
+				var r = 0;
+				//strLog += "\ngetSymChange: length == 1\ns: " + s + " r: " + r;
+				return r;
+			} else {
+				//rework to edit times of first and last entries of array.
+				
+				var ch;
+				var sc = 0;
+				for(var c1=1; c1<m.length; c1++){
+					ch = parseFloat(m[cl][1]) > parseFloat(m[cl-1][1]);
+					//strLog += "\ngetSymChange: val: " +  parseInt(parseFloat(m[c1][1]));
+					if(ch > 0){
+						sc++;
+					} else if(ch < 0){
+						sc--;
+					} 
+				}
+				//strLog += "\nngetSymChange: last val: " +  parseInt(parseFloat(m[m.length -1][1]));
+				//strLog += "\ngetSymChange:\ns: " + s + " r: " + r;
+				return sc;
+			}
+		}
+	}
+	//strLog += "\ngetSymChange: no match for symptom " + s;
+	return 0;
+}
+
+
 try{		
-	main();		
+	overviewAnalysis();		
 }
 catch(error){
 	var e = new Error("Rethrowing the " + error.message + " error");
@@ -547,4 +588,4 @@ catch(error){
 	logFile.close();
 	throw e;
 }	
-message("Analysis updated 2020-09-03 12:24");	
+message("Analysis updated 2020-09-08 14:21");	
