@@ -17,16 +17,14 @@ parseInt("01") == NaN.
 parseFloat("01") == 1.
 */
 
+message("Analysis started");
 
-
-function overviewAnalysis(){
-	message("Analysis started");
-	var logFile = file("/storage/emulated/0/memento/Analysis log.txt"), strLog = "";
-	var arEntries = lib().entries();
-	var score = {};
-	var diff = {num: 0, date: ""};
-	var endLogged;
-	var MAPos = [	
+var logFile = file("/storage/emulated/0/memento/Analysis log.txt"), strLog = "";
+var arEntries;
+var score = {};
+var diff = {num: 0, date: ""};
+var endLogged;
+var MAPos = [	
 	"Contentment", 
 	"Tranquility", 
 	"Enthusiasm",
@@ -36,14 +34,14 @@ function overviewAnalysis(){
 	"Energy",
 	"Motivation",
 	];
-	var MANeg = [
+var MANeg = [
 	"Fatigue",
 	"Sleepiness",
 	"Torso, leaden",
 	"Arms, leaden",
 	"Legs, leaden"
-	];
-	var CAANeg = [
+];
+var CAANeg = [
 	"Fatigue",
 	"Sleepiness",
 	"Anxiety", 
@@ -55,15 +53,15 @@ function overviewAnalysis(){
 	"Torso, leaden",
 	"Arms, leaden",
 	"Legs, leaden"
-	];
-	var arExercises = [
+];
+var arExercises = [
 	{n: "glutes 1", i: 3},
 	{n: "glutes 2", i: 5},
 	{n: "squat",	i: 30},
 	{n: "press up", i: 30}
-	];
+];
 
-	/*	Morning awakeness
+/*	Morning awakeness
 	=	-	Overview										Higher								
 	=	-	First major intake								Earlier					
 	=	-	Exercised										More					fn
@@ -74,11 +72,11 @@ function overviewAnalysis(){
 	=	-	Torso, Arms and Legs leaden						Lower					inv
 	=	-	Sleep Cycle terminated against sleep logged		Lower difference		fn
 		-	Comments
-	*/
+*/
 
-	/*Contentment and alertness
-	-	Happy, content, stable
-
+/*Contentment and alertness
+-	Happy, content, stable
+	
 		-	Overview										Higher
 		-	Contentment, Tranquility, Enthusiasm			Higher
 			Mental clarity, Processing speed,				Higher
@@ -92,7 +90,8 @@ function overviewAnalysis(){
 		*/
 
 
-	function main(){
+function overviewAnalysis(entries){
+	arEntries = entries;
 	//strLog += "Analysis main\n";
 	var e;
 	for(var c1=0; c1<arEntries.length; c1++){
@@ -101,7 +100,7 @@ function overviewAnalysis(){
 		
 		strLog += "\n\n" + e.field("Day start") + "\nscore: " + JSON.stringify(score);
 		
-		/*
+		
 		//Morning awakeness
 		//Sleep cycle needs to come first to get first entry on wakening
 		updateScoreSleepCAACycle(e);
@@ -115,29 +114,28 @@ function overviewAnalysis(){
 		updateScoreSleepCAA(e);
 		updateScoreExerciseCAA(e);
 		
-		//strLog += "\nend: score: " + JSON.stringify(score);
+		strLog += "\nend: score: " + JSON.stringify(score);
 		e.set("Morning awakeness", parseFloat(score.ma.toFixed(2)));
 		e.set("Contentment and alertness",  parseFloat(score.caa.toFixed(2)));
-		*/
+		
 		
 		//Overview duration
-		//updateOverviewDuration(e);
-		//e.set("Overview duration",  parseFloat(score.ovd.toFixed(2)));
+		updateOverviewDuration(e);
+		e.set("Overview duration",  parseFloat(score.ovd.toFixed(2)));
 		
 		//Symptoms change
 		//Rather than using i#, calculate using only i#[1] > i#[0], ie better or worse
 		//As i# subjective, this should be more reliable
-		
-		
+				
 		message(c1 + " of " + arEntries.length);
 	}
-
+	
 	logFile.write(strLog);
 	logFile.close();
-	}
+}
 
-	//rates how much I've slept on after turning off sleep cycle
-	function updateScoreSleepCAACycle(e){
+//rates how much I've slept on after turning off sleep cycle
+function updateScoreSleepCAACycle(e){
 	//strLog += "\n\nupdateScoreSleepCAACycle\nscore: " + JSON.stringify(score);
 	//end times in form {h, m}
 	var el = getEndLogged(e);
@@ -161,10 +159,10 @@ function overviewAnalysis(){
 	}
 	//strLog += "\nupdateScoreSleepCAACycle: endLogged == null";
 	return null;
-	}
+}
 
-	//sorts the entries into time order, discards Rest entries and returns latest Sleep entry
-	function getEndLogged(e){
+//sorts the entries into time order, discards Rest entries and returns latest Sleep entry
+function getEndLogged(e){
 	var m, r, el, ret = [];
 	//convert array to list of end times
 	e.field("Sleep - night").split("\n").map((l)=>{
@@ -204,9 +202,9 @@ function overviewAnalysis(){
 	} else {
 		return null;
 	}
-	}
+}
 
-	function getEndSC(e){
+function getEndSC(e){
 	var el = e.field("Sleep Cycle data");
 	el = el.match(/.* to (\d+):(\d+)/);
 	if(el != null){
@@ -215,11 +213,11 @@ function overviewAnalysis(){
 	} else {
 		return null;
 	}
-	}
+}
 
-	//calculates difference in hours and returns
-	function getDiff(el, endSC){
-
+//calculates difference in hours and returns
+function getDiff(el, endSC){
+	
 	//strLog += "\ngetDiff: el: " + JSON.stringify(el) + " endSC: " + JSON.stringify(endSC);
 	el.m -= endSC.m;
 	if(el.m < 0){
@@ -235,10 +233,10 @@ function overviewAnalysis(){
 		//strLog += "\ngetDiff: Negative difference, res: " + res;
 		return null;
 	}
-	}
-
-	//sym [["##:##", "#"], [],...]
-	function getSymValMA(e, s){
+}
+	
+//sym [["##:##", "#"], [],...]
+function getSymValMA(e, s){
 	//if only one entry
 	//	use that
 	//else
@@ -288,11 +286,11 @@ function overviewAnalysis(){
 	}
 	//strLog += "\ngetSymValMA: failed to find symptom: " + s;
 	return 0;
-	}
+}
 
-	//"Average overview breakdown" for first entry after sleep end.
-	// ##:## - #, ordered from early to late.
-	function updateOverviewMA(e){
+//"Average overview breakdown" for first entry after sleep end.
+// ##:## - #, ordered from early to late.
+function updateOverviewMA(e){
 	//strLog += "\n\nupdateOverviewMA\nendLogged: " + endLogged;
 	var o = e.field("Average overview breakdown").split("\n");
 	for(var a=0; a<o.length; a++){
@@ -306,10 +304,10 @@ function overviewAnalysis(){
 	}
 	//strLog += "\nupdateOverviewMA: No time found";
 	return null;
-	}
+}
 
-	//Score based on symptom value at end of logged sleep
-	function updateScoreMA(e){
+//Score based on symptom value at end of logged sleep
+function updateScoreMA(e){
 	//strLog += "\nupdateScoreMA\nscore: " + JSON.stringify(score);
 	MAPos.map((s)=>{
 		score.ma += getSymValMA(e, s) / 5;
@@ -318,12 +316,12 @@ function overviewAnalysis(){
 		score.ma += (5 - getSymValMA(e, s)) / 5;
 	});
 	//strLog += "\nscore: " + JSON.stringify(score);
-	}
+}
 
-	//score based on how early first major intake is.
-	//ideal time 08:45, implies breakfast about 08:00
-	//between 04:00 and 13:00
-	function updateScoreFirstIntake(e){
+//score based on how early first major intake is.
+//ideal time 08:45, implies breakfast about 08:00
+//between 04:00 and 13:00
+function updateScoreFirstIntake(e){
 	//strLog += "\nupdateScoreFirstIntake\nscore: " + JSON.stringify(score);
 	//results in 
 	//    ##:##
@@ -358,10 +356,10 @@ function overviewAnalysis(){
 	//strLog += "\nupdateScoreFirstIntake: diff: " + diff;
 	score.ma += diff;
 	//strLog += "\nupdateScoreFirstIntake\nscore: " + JSON.stringify(score);
-	}
+}
 
-	//comparess amount of exercise with ideal
-	function updateScoreExerciseMA(e){
+//comparess amount of exercise with ideal
+function updateScoreExerciseMA(e){
 	//strLog += "\nupdateScoreExerciseMA\nscore: " + JSON.stringify(score);
 	var ex = e.field("Exercise breakdown").split("\n\n");
 	var time, exL;
@@ -382,10 +380,10 @@ function overviewAnalysis(){
 		}
 	}
 	//strLog += "\nupdateScoreExerciseMA\nscore: " + JSON.stringify(score);
-	}
+}
 
-	//turns "hh:mm" into {h: hh, m: mm}
-	function timeStringToObject(ts){
+//turns "hh:mm" into {h: hh, m: mm}
+function timeStringToObject(ts){
 	ts = ts.match(/(\d+):(\d+)/);
 	if(ts != null){
 		return {
@@ -396,11 +394,11 @@ function overviewAnalysis(){
 		//strLog += "\ntimeStringToObject failed with " + ts;
 		return null;
 	}
-	}
+}
 
-	//slightly different math to getDiff
-	//inputs t0, t1 == ##:##
-	function getSpan(t0, t1){
+//slightly different math to getDiff
+//inputs t0, t1 == ##:##
+function getSpan(t0, t1){
 	strLog += "\ngetSpan: t0: " + t0 + ", t1: " + t1;
 	t0 = timeStringToObject(t0);
 	t1 = timeStringToObject(t1);
@@ -418,12 +416,12 @@ function overviewAnalysis(){
 	r = parseFloat((r.h + (r.m / 60)).toFixed(2));
 	strLog += "\ngetSpan 2: r " + r;
 	return r;
-	}
+}
 
-	//for a given entry and symptom, finds symptom and creates a score of time duration * symptom intensity
-	//returns this corrected to 0-1
-	function getSymValCAA(e, s){
-
+//for a given entry and symptom, finds symptom and creates a score of time duration * symptom intensity
+//returns this corrected to 0-1
+function getSymValCAA(e, s){
+	
 	var arSymptoms = e.field("Symptoms - current").split("\n");
 	for (var a=0; a<arSymptoms.length; a++){
 		var m = arSymptoms[a].match(new RegExp(".*" + s + ".*?(\\[.*\\])"));
@@ -456,10 +454,10 @@ function overviewAnalysis(){
 	}
 	//strLog += "\ngetSymValCAA: no match for symptom " + s;
 	return 0;
-	}
+}
 
-	//updates to CAA pos and neg symptoms
-	function updateScoreCAA(e, MAPos, CAANeg){
+//updates to CAA pos and neg symptoms
+function updateScoreCAA(e, MAPos, CAANeg){
 	//strLog += "\nupdateScoreCAA\nscore: " + JSON.stringify(score);
 	MAPos.map((s)=>{
 		score.caa += getSymValCAA(e, s) / 5;
@@ -468,10 +466,10 @@ function overviewAnalysis(){
 		score.caa += (5 - getSymValCAA(e, s)) / 5;
 	});
 	//strLog += "\nupdateScoreCAAscore: " + JSON.stringify(score);
-	}
+}
 
-	//assume 6hrs max sleep during day.
-	function updateScoreSleepCAA(e){
+//assume 6hrs max sleep during day.
+function updateScoreSleepCAA(e){
 	//strLog += "\nupdateScoreSleepCAA\nscore: " + JSON.stringify(score);
 	var s = e.field("Sleep - total day");
 	if(s > 6){
@@ -479,10 +477,10 @@ function overviewAnalysis(){
 	}
 	score.caa += (6 - s) / 6;
 	//strLog += "\nupdateScoreSleepCAA\nscore: " + JSON.stringify(score);
-	}
+}
 
-	//comparess amount of exercise with ideal
-	function updateScoreExerciseCAA(e){
+//comparess amount of exercise with ideal
+function updateScoreExerciseCAA(e){
 	//strLog += "\nupdateScoreExerciseCAA\nscore: " + JSON.stringify(score);
 	var ex = e.field("Exercise breakdown").split("\n\n");
 	var time, exL;
@@ -503,10 +501,10 @@ function overviewAnalysis(){
 		}
 	}
 	//strLog += "\nupdateScoreExerciseCAA\nscore: " + JSON.stringify(score);
-	}
+}
 
-	//updates duration * overview value, 0 - 1
-	function updateOverviewDuration(e){
+//updates duration * overview value, 0 - 1
+function updateOverviewDuration(e){
 	var ov = e.field("Average overview breakdown").split("\n");
 	strLog += "\nupdateOverviewDuration: ov:\n" + JSON.stringify(ov);
 	if(ov.length > 0){
@@ -537,12 +535,12 @@ function overviewAnalysis(){
 			score.ovd = r;
 		}
 	}
-	}
+}
 
-	//for a given entry and symptom, finds symptom and creates a score of time duration * symptom intensity
-	//returns this corrected to 0-1
-	function getSymChange(e, s){
-
+//for a given entry and symptom, finds symptom and creates a score of time duration * symptom intensity
+//returns this corrected to 0-1
+function getSymChange(e, s){
+	
 	var arSymptoms = e.field("Symptoms - current").split("\n");
 	for (var a=0; a<arSymptoms.length; a++){
 		var m = arSymptoms[a].match(new RegExp(".*" + s + ".*?(\\[.*\\])"));
@@ -577,7 +575,17 @@ function overviewAnalysis(){
 	}
 	//strLog += "\ngetSymChange: no match for symptom " + s;
 	return 0;
-	}
-	message("Analysis updated 2020-09-08 14:21");	
 }
 
+
+try{		
+	overviewAnalysis();		
+}
+catch(error){
+	var e = new Error("Rethrowing the " + error.message + " error");
+	strLog += "\n\n" + JSON.stringify(error);
+	logFile.write(strLog);
+	logFile.close();
+	throw e;
+}	
+message("Analysis updated 2020-09-08 14:21");	
