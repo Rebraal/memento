@@ -61,7 +61,7 @@ function overviewAnalysisAll(){
 
 function overviewAnalysis(e){
 
-		strLog += "Analysis main\n";
+		strLog += "\n\nAnalysis main";
 
 		score = {ma: 0, caa: 0, ovd: 0};
 		
@@ -81,14 +81,14 @@ function overviewAnalysis(e){
 		updateScoreSleepCAA(e);
 		updateScoreExerciseCAA(e);
 		
+		//Overview duration
+		updateOverviewDuration(e);
+		
 		strLog += "\nend: score: " + JSON.stringify(score);
 		e.set("Morning awakeness", parseFloat(score.ma.toFixed(2)));
 		e.set("Contentment and alertness",  parseFloat(score.caa.toFixed(2)));
-		
-		
-		//Overview duration
-		updateOverviewDuration(e);
 		e.set("Overview duration",  parseFloat(score.ovd.toFixed(2)));
+		e.set("Adjustments", "Testing out");
 		
 		//Symptoms change
 		//Rather than using i#, calculate using only i#[1] > i#[0], ie better or worse
@@ -541,4 +541,4 @@ function getSymChange(e, s){
 	return 0;
 }
 
-message("Analysis loaded 2020-10-07 14:16");	
+message("Analysis loaded 2020-10-07 14:51");	
