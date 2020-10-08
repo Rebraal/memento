@@ -45,9 +45,10 @@ var arExercises = [
 function overviewAnalysisAll(){
 	message("overviewAnalysisAll started");
 	try{
-		var arEntries = lib().entries();
+		//var arEntries = lib().entries();
 		for(var c1=0; c1<arEntries.length; c1++){
-			overviewAnalysis(arEntries[c1]);
+			//overviewAnalysis(arEntries[c1]);
+			overviewAnalysis(c1);
 		}
 	}
 	catch(error){
@@ -59,9 +60,15 @@ function overviewAnalysisAll(){
 	message("overviewAnalysisAll completed");
 }
 
-function overviewAnalysis(e){
+function overviewAnalysis(doe){
 
 		strLog += "\n\nAnalysis main";
+		var e = lib().entries();
+		if(doe != null){
+			e = e[doe];
+		} else {
+			e = e[0];
+		}
 
 		score = {ma: 0, caa: 0, ovd: 0};
 		
@@ -540,5 +547,4 @@ function getSymChange(e, s){
 	strLog += "\ngetSymChange: no match for symptom " + s;
 	return 0;
 }
-
-message("Analysis loaded 2020-10-07 14:51");	
+message("Analysis loaded 2020-10-08 10:11");	
