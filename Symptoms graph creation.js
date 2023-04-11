@@ -21,8 +21,8 @@ Solved - Status - B, D onClose was sending the full symptoms line including i# a
 */
 
 var fileDate = new DATE(new Date()).dateStamp;
-var backup = file("/storage/emulated/0/memento/Symptoms graph/Backup/Backup " + fileDate + ".txt");
-var dstLog = file("/storage/emulated/0/memento/Symptoms graph/dstLog.txt");
+var backup = file("/storage/emulated/0/memento/Symptoms graphs/Backup/Backup " + fileDate + ".txt");
+var dstLog = file("/storage/emulated/0/memento/Symptoms graphs/dstLog.txt");
 
 var graphLibrary = libByName("Symptoms graphing");
 
