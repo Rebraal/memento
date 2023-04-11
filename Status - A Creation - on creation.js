@@ -6,7 +6,7 @@
 //Copy and load Intake fields from library "Reference"
 function onCreation(){
 	message ("A Creation - on creation" +
-	"\nDeveloping" + 
+	"\nDeveloping " + 
 	"2023-04-10 19:11"
 	// "\nWorking:\n" +
 	//"2020-05-09 16:45"
