@@ -156,4 +156,4 @@ function DATE (input){
 	this.updateProperties();
 }
 
-message("DATE updated 2023-04-14 1300");
+//message("DATE updated 2023-04-14 13:15");
