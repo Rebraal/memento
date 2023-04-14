@@ -12,7 +12,7 @@ var symptomsGraph = [], symptomsErrors = "";
 
 function onClose(){
 
-	message("onClose");
+	message("onClose" + "2023-04-14 13:10");
 
 	entry().set("Date stamp", new DATE(entry()).dateStamp);
 
@@ -28,7 +28,7 @@ function onClose(){
 	} else {
 		message("onClose end" + 
 				"\nDeveloping:\n" +
-				"2023-04-10 19:11"
+				"2023-04-14 13:10"
 				);
 	}
 }
