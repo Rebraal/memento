@@ -339,10 +339,11 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 	//set the new fields to the new array values
 	//Currently we only have arrays, so stringify with join("") ["Hi", "There"] => "HiThere"
 	entry().set(fldSC, arNSC.join(""));
-	entry().set("");
+	message("updated");
+	entry().set(fldSI, "");
 	entRef.set(fldSI, arNSI.join(""));
 	if(symptomsGraph.length > 0){
-		csg(symptomsGraph);
+		//csg(symptomsGraph);
 	}
 	return;
 
