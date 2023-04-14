@@ -4,8 +4,8 @@
 
 var entRef = libByName("References").entries()[0];
 
-var fileSymptoms = file("/storage/emulated/0/Memento/Symptoms graphs/Symptoms fields.txt");
-fileSymptoms.write(lib().title + "\n");
+//var fileSymptoms = file("/storage/emulated/0/Memento/Symptoms graphs/Symptoms fields.txt");
+//fileSymptoms.write(lib().title + "\n");
 
 var symptomsGraph = [], symptomsErrors = "";
 
@@ -297,7 +297,7 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 		if(res != null){
 			//if edit
 			if(res[z.edit] != undefined){
-				fileSymptoms.write(res[z.symptom] + "\n");
+				//fileSymptoms.write(res[z.symptom] + "\n");
 				symptomsGraph.push({library: lib().title, symptom: res[z.symptom], edit: res[z.edit]});
 			}
 			//if deletion
