@@ -12,7 +12,7 @@ var symptomsGraph = [], symptomsErrors = "";
 
 function onClose(){
 
-	message("onClose" + "2023-04-14 13:10");
+	message("onClose " + "2023-04-14 13:20");
 
 	entry().set("Date stamp", new DATE(entry()).dateStamp);
 
@@ -23,7 +23,7 @@ function onClose(){
 	supplements();
 	
 	if(symptomsErrors != ""){
-		log("symptomsErrors:\n" + symptomsErrors);
+		message("symptomsErrors:\n" + symptomsErrors);
 		throw new Error(symptomsErrors);
 	} else {
 		message("onClose end" + 
@@ -339,7 +339,6 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 	//set the new fields to the new array values
 	//Currently we only have arrays, so stringify with join("") ["Hi", "There"] => "HiThere"
 	entry().set(fldSC, arNSC.join(""));
-	message("updated");
 	entry().set(fldSI, "");
 	entRef.set(fldSI, arNSI.join(""));
 	if(symptomsGraph.length > 0){
