@@ -36,9 +36,10 @@ var strBackup = "";
 //this character is what the graph looks like, ie +, ++, +++, ++++, +++++
 var graphChar = "+";
 
-var editDateCreateGraph = "2023-07-29 1522"
+var editDateCreateGraph = "2023-07-29 1526"
 
 LOG.create({Log : "Create symptoms graph.js " + editDateCreateGraph + " load start"})
+log("Create symptoms graph.js " + editDateCreateGraph + " load start")
 
 //main function sequence
 function createAllSymptomGraphs(ed, symptomsGraph){
