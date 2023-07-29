@@ -15,7 +15,7 @@ log("Status - B, D - on close.js" + editDateOnClose + " load start")
 function onClose(){
 
 	//try {
-		message("onClose " + editDateOnClose);
+		message("onClose\n" + editDateOnClose);
 
 		//entry().set("Date stamp", new DATE(entry()).dateStamp);
 

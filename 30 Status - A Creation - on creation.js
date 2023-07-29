@@ -4,11 +4,12 @@
 
 //INTAKE
 //Copy and load Intake fields from library "Reference"
-var editDateOnCreate = "2023-07-29 1300"
+var editDateOnCreate = "2023-07-29 1552"
+LOG.create({Log : "A Creation.js" + editDateOnCreate + " load start"})
+log("A Creation.js" + editDateOnCreate + " load start")
 
 function onCreation(){
-	message ("A Creation - on creation" +
-	"\nDeveloping " + 
+	message ("A Creation - on creation\n" +
 	editDateOnCreate
 	);
 
@@ -67,3 +68,6 @@ function onCreation(){
 		entryDefault().set(arToCopy[n], entRef.field(arToCopy[n]));
 	};
 }
+
+LOG.create({Log : "Status - A Creation.js" + editDateOnCreate + " loaded"})
+log("Status - A Creation.js" + editDateOnCreate + " load started")
