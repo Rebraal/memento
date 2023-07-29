@@ -5,6 +5,7 @@
 //INTAKE
 //Copy and load Intake fields from library "Reference"
 var editDateOnCreate = "2023-07-29 1552"
+var LOG = libByName("Logs")
 LOG.create({Log : "A Creation.js" + editDateOnCreate + " load start"})
 log("A Creation.js" + editDateOnCreate + " load start")
 
