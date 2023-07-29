@@ -35,6 +35,7 @@ var changes, changeStr = "";
 var graphEntries = lib().entries();
 var graphChar = "+";
 var statusEntries;
+var editDateWriteSymptomsChanges = "2023-07-29 1300"
 
 //main function stream
 updateStatus();
@@ -203,4 +204,4 @@ function changeLog(txt){
 	changeStr += txt;
 }
 
-log("Write symptoms changes - dev.js 2020-08-06 14:41");
+log("Write symptoms changes - dev.js" + editDateWriteSymptomsChanges);

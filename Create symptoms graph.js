@@ -36,6 +36,8 @@ var strBackup = "";
 //this character is what the graph looks like, ie +, ++, +++, ++++, +++++
 var graphChar = "+";
 
+var editDateCreateGraph = "2023-07-29 1300"
+
 LOG.create({Log : "Create symptoms graph.js loaded"})
 
 //main function sequence
@@ -170,4 +172,4 @@ function createSymptomGraph(symptom, edit){
 	return {graph: strGraph.slice(0, -1), log: strLog.slice(0, -1)};
 }
 
-log("Create symptoms graphs.js 2020-08-06 14:12");
+log("Create symptoms graphs.js " + editDateCreateGraph);

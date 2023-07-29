@@ -13,11 +13,12 @@ added method for subtracting days from date.
 2020-08-03 2015
 renamed all function with a DATE_ prefix to prevent duplication
 */
+var editDateDATE = "2023-07-29 1300"
 var LOG = libByName("Logs")
-LOG.create({Log : "DATE.js loaded"})
+LOG.create({Log : "DATE.js " + editDateDATE+ " loaded"})
 
 function DATE_correctHour(h){
-	h += 1;
+	h += 1; 
 	return  h > 23 ? 0 : h;
 }
 //returns a double digit string from a number - ie 1 => "01"

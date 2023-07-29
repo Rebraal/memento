@@ -4,12 +4,12 @@
 
 //INTAKE
 //Copy and load Intake fields from library "Reference"
+var editDateOnCreate = "2023-07-29 1300"
+
 function onCreation(){
 	message ("A Creation - on creation" +
 	"\nDeveloping " + 
-	"2023-04-10 19:11"
-	// "\nWorking:\n" +
-	//"2020-05-09 16:45"
+	editDateOnCreate
 	);
 
 	var intLast = 0, intTime, intEnt, intCnt = 5;
