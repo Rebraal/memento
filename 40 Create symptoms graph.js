@@ -173,5 +173,5 @@ function createSymptomGraph(symptom, edit){
 	return {graph: strGraph.slice(0, -1), log: strLog.slice(0, -1)};
 }
 
-log("Create symptoms graphs.js " + editDateCreateGraph);
-LOG.create({Log : "Create symptoms graphs.js " + editDateCreateGraph});
+log("Create symptoms graphs.js " + editDateCreateGraph + " loaded");
+LOG.create({Log : "Create symptoms graphs.js " + editDateCreateGraph + " loaded"});
