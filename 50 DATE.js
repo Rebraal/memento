@@ -13,10 +13,10 @@ added method for subtracting days from date.
 2020-08-03 2015
 renamed all function with a DATE_ prefix to prevent duplication
 */
-var editDateDATE = "2023-07-29 1526"
+var editDateDATE = "2023-07-29 1542"
 var LOG = libByName("Logs")
 LOG.create({Log : "DATE.js " + editDateDATE+ " load start"})
-log("DATE.js " + editDateDATE+ " load start"})
+log("DATE.js " + editDateDATE+ " load start")
 
 function DATE_correctHour(h){
 	h += 1; 
