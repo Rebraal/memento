@@ -30,8 +30,7 @@ function onClose(){
 			message("symptomsErrors:\n" + symptomsErrors);
 			throw new Error(symptomsErrors);
 		} else {
-			message("onClose end" + 
-					"\nDeveloping:\n" +
+			message("onClose end\n" + 
 					editDateOnClose
 					);
 		}
@@ -353,6 +352,8 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 	entry().set(fldSI, arNSI.join(""));  //Not sure why this isn't working?!
 	if(symptomsGraph.length > 0){
 		csg(symptomsGraph);
+		message("csg called")
+		LOG.create({Log : "csg called"})
 	}
 	return;
 
@@ -591,7 +592,7 @@ function arraySupplementsOutput(ar, quantity){
 
 //for ease of commenting out
 function csg(symptomsGraph){
-	log(entry().field("Date stamp") + "\n" + JSON.stringify(symptomsGraph));
+	LOG.create({Log : entry().field("Date stamp") + "\n" + JSON.stringify(symptomsGraph)});
 	createAllSymptomGraphs(entry().field("Date stamp"), symptomsGraph);
 }
 
