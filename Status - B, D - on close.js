@@ -8,15 +8,15 @@ var LOG = libByName("Logs")
 //fileSymptoms.write(lib().title + "\n");
 
 var symptomsGraph = [], symptomsErrors = "";
-var editDateOnClose = "2023-07-29 1300"
-LOG.create({Log : "Status - B, D - on close.js loaded"})
+var editDateOnClose = "2023-07-29 1400"
+LOG.create({Log : "Status - B, D - on close.js" + editDateOnClose + " loaded"})
 
 function onClose(){
 
 	//try {
-		message("onClose " + editDateOnClose);
+		//message("onClose " + editDateOnClose);
 
-		entry().set("Date stamp", new DATE(entry()).dateStamp);
+		//entry().set("Date stamp", new DATE(entry()).dateStamp);
 
 		intakes();
 
