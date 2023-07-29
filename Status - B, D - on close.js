@@ -8,12 +8,13 @@ var LOG = libByName("Logs")
 //fileSymptoms.write(lib().title + "\n");
 
 var symptomsGraph = [], symptomsErrors = "";
+var editDate = "2023-07-29 1300"
 LOG.create({Log : "Status - B, D - on close.js loaded"})
 
-function onClose()
+function onClose(){
 
-	try {
-		message("onClose " + "2023-04-14 13:20");
+	//try {
+		message("onClose " + editDate);
 
 		entry().set("Date stamp", new DATE(entry()).dateStamp);
 
@@ -30,14 +31,14 @@ function onClose()
 		} else {
 			message("onClose end" + 
 					"\nDeveloping:\n" +
-					"2023-07-27 12:00"
+					editDate
 					);
 		}
-	}
+	//}
 
-	catch { 
+	//catch { 
 
-	}
+	//}
 }
 
 //INTAKE
