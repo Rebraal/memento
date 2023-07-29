@@ -17,7 +17,7 @@ function onClose(){
 	//try {
 		message("onClose\n" + editDateOnClose);
 
-		//entry().set("Date stamp", new DATE(entry()).dateStamp);
+		entry().set("Date stamp", new DATE(entry()).dateStamp);
 
 		intakes();
 
