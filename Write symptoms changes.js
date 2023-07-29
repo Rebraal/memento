@@ -35,7 +35,7 @@ var changes, changeStr = "";
 var graphEntries = lib().entries();
 var graphChar = "+";
 var statusEntries;
-var editDateWriteSymptomsChanges = "2023-07-29 1300"
+var editDateWriteSymptomsChanges = "2023-07-29 1522"
 
 //main function stream
 updateStatus();
