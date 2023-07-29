@@ -352,7 +352,7 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 	entRef.set(fldSI, arNSI.join(""));
 	entry().set(fldSI, arNSI.join(""));  //Not sure why this isn't working?!
 	if(symptomsGraph.length > 0){
-		//csg(symptomsGraph);
+		csg(symptomsGraph);
 	}
 	return;
 
