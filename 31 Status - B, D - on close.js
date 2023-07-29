@@ -8,7 +8,7 @@ var LOG = libByName("Logs")
 //fileSymptoms.write(lib().title + "\n");
 
 var symptomsGraph = [], symptomsErrors = "";
-var editDateOnClose = "2023-07-29 1526"
+var editDateOnClose = "2023-07-29 1607"
 LOG.create({Log : "Status - B, D - on close.js" + editDateOnClose + " load start"})
 log("Status - B, D - on close.js" + editDateOnClose + " load start")
 
