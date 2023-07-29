@@ -25,6 +25,7 @@ var fileDate = new DATE(new Date()).dateStamp;
 //var dstLog = file("/storage/emulated/0/Memento/Symptoms graphs/dstLog.txt");
 
 var graphLibrary = libByName("Symptoms graphing");
+var LOG = libByName("Logs")
 
 //this is the library to edit
 var symptomEntries = [], sourceEntries, workingEntries;
@@ -35,6 +36,7 @@ var strBackup = "";
 //this character is what the graph looks like, ie +, ++, +++, ++++, +++++
 var graphChar = "+";
 
+LOG.create({Log : "Create symptoms graph.js loaded"})
 
 //main function sequence
 function createAllSymptomGraphs(ed, symptomsGraph){

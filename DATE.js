@@ -13,6 +13,8 @@ added method for subtracting days from date.
 2020-08-03 2015
 renamed all function with a DATE_ prefix to prevent duplication
 */
+var LOG = libByName("Logs")
+LOG.create({Log : "DATE.js loaded"})
 
 function DATE_correctHour(h){
 	h += 1;

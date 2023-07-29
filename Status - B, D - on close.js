@@ -3,33 +3,40 @@
 //	Create symptoms graph.js
 
 var entRef = libByName("References").entries()[0];
-
+var LOG = libByName("Logs")
 //var fileSymptoms = file("/storage/emulated/0/Memento/Symptoms graphs/Symptoms fields.txt");
 //fileSymptoms.write(lib().title + "\n");
 
 var symptomsGraph = [], symptomsErrors = "";
+LOG.create({Log : "Status - B, D - on close.js loaded"})
 
+function onClose()
 
-function onClose(){
+	try {
+		message("onClose " + "2023-04-14 13:20");
 
-	message("onClose " + "2023-04-14 13:20");
+		entry().set("Date stamp", new DATE(entry()).dateStamp);
 
-	entry().set("Date stamp", new DATE(entry()).dateStamp);
+		intakes();
 
-	intakes();
+		symptoms();
 
-	symptoms();
+		supplements();
+		
+		if(symptomsErrors != ""){
+			LOG.create({Log : "symptomsErrors:\n" + symptomsErrors})
+			message("symptomsErrors:\n" + symptomsErrors);
+			throw new Error(symptomsErrors);
+		} else {
+			message("onClose end" + 
+					"\nDeveloping:\n" +
+					"2023-07-27 12:00"
+					);
+		}
+	}
 
-	supplements();
-	
-	if(symptomsErrors != ""){
-		message("symptomsErrors:\n" + symptomsErrors);
-		throw new Error(symptomsErrors);
-	} else {
-		message("onClose end" + 
-				"\nDeveloping:\n" +
-				"2023-04-14 13:10"
-				);
+	catch { 
+
 	}
 }
 
@@ -339,8 +346,9 @@ var strSC = entry().field(fldSC), strSI = entry().field(fldSI);
 	//set the new fields to the new array values
 	//Currently we only have arrays, so stringify with join("") ["Hi", "There"] => "HiThere"
 	entry().set(fldSC, arNSC.join(""));
-	entry().set(fldSI, "");
+	//entry().set(fldSI, "");			 //This shouldn't be commented out, really.
 	entRef.set(fldSI, arNSI.join(""));
+	entry().set(fldSI, arNSI.join(""));  //Not sure why this isn't working?!
 	if(symptomsGraph.length > 0){
 		//csg(symptomsGraph);
 	}
